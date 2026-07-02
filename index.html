@@ -7,6 +7,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        /* Nepali language lighter typography */
+        body.nepali h1,
+        body.nepali h2,
+        body.nepali h3,
+        body.nepali .font-black {
+          font-weight: 700 !important;
+        }
+
+        body.nepali .font-bold {
+          font-weight: 600 !important;
+        }
+
+        body.nepali .font-semibold {
+          font-weight: 500 !important;
+        }
         body::before{
           content:"";
           position:fixed;
@@ -699,6 +714,11 @@ function swapLanguage(){
     el.textContent = nepali ? el.dataset.en : el.dataset.ne;
   });
   document.getElementById('langLabel').textContent = nepali ? 'नेपाली' : 'English';
+  if (nepali) {
+    document.body.classList.remove('nepali');
+  } else {
+    document.body.classList.add('nepali');
+  }
   nepali=!nepali;
 }
 

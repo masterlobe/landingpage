@@ -136,7 +136,7 @@
       <div class="flex flex-wrap justify-center items-center gap-2 w-full max-w-md sm:w-auto rounded-b-3xl border-x border-b border-slate-200 bg-white/95 backdrop-blur-md px-3 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
         <a href="#solution" class="px-4 py-2 text-xs sm:text-sm rounded-full font-medium text-slate-700 transition-all duration-300 hover:bg-blue-50 hover:text-blue-700"
            data-en="How It Works" data-ne="यसरी काम गर्छ">How It Works</a>
-        <a href="#audit" class="px-4 py-2 text-xs sm:text-sm rounded-full font-medium text-slate-700 transition-all duration-300 hover:bg-blue-50 hover:text-blue-700"
+        <a href="#audit" class="px-4 py-2 text-xs sm:text-sm rounded-full font-medium text-slate-700 transition-all duration-300 hover:bg-blue-50 hover:text-blue-700 relative before:absolute before:-top-1 before:-right-1 before:h-2 before:w-2 before:rounded-full before:bg-yellow-400 before:animate-ping"
            data-en="Free Audit" data-ne="निःशुल्क अडिट">Free Audit</a>
         <a href="#faq" class="px-4 py-2 text-xs sm:text-sm rounded-full font-medium text-slate-700 transition-all duration-300 hover:bg-blue-50 hover:text-blue-700"
            data-en="FAQs" data-ne="प्रश्नहरू">FAQs</a>
@@ -160,19 +160,24 @@
         <!-- 1. HERO -->
         <section class="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-start min-h-[60vh] pt-2 reveal">
             <div class="hero-content space-y-5 max-w-3xl pt-0 text-center lg:text-left items-center lg:items-start flex flex-col">
-                <div class="inline-flex items-center border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 self-center lg:self-start"
+                <div class="inline-flex items-center rounded-full border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 self-center lg:self-start"
                   data-en="LOCAL VISIBILITY SYSTEM" data-ne="स्थानीय दृश्यता प्रणाली">LOCAL VISIBILITY SYSTEM
                 </div>
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-[-0.03em] leading-tight max-w-3xl"
-                    data-en="When people in your area search for your service, do they find your business?"
-                    data-ne="तपाईंको क्षेत्रमा मानिसहरूले तपाईंको सेवा खोज्दा, के उनीहरूले तपाईंको व्यवसाय भेट्टाउँछन्?">
-                    When people in your area search for your service, do they find your business?
+                    data-en="When customers search nearby, will they choose your business or your competitor?"
+                    data-ne="ग्राहकहरूले नजिकै खोज्दा, उनीहरूले तपाईंको व्यवसाय रोज्छन् कि प्रतिस्पर्धीको?">
+                    When customers search nearby, will they choose your business or your competitor?
                 </h1>
                 <p class="text-base lg:text-lg text-slate-600 leading-7 max-w-md lg:max-w-xl"
                    data-en="Every day, potential customers search for businesses like yours. If they don't find and trust your business, they'll choose your competitor instead."
                    data-ne="हरेक दिन सम्भावित ग्राहकहरूले तपाईं जस्तै व्यवसाय खोज्छन्। यदि उनीहरूले तपाईंको व्यवसाय फेला पार्न सकेनन् वा विश्वास गर्न सकेनन् भने, उनीहरूले प्रतिस्पर्धीलाई रोज्नेछन्।">
                     Every day, potential customers search for businesses like yours. If they don't find and trust your business, they'll choose your competitor instead.
                 </p>
+                <div class="flex flex-wrap justify-center lg:justify-start gap-3 text-sm font-medium text-slate-700">
+                  <div class="rounded-full border border-slate-200 bg-white px-4 py-2">⭐ Google Visibility</div>
+                  <div class="rounded-full border border-slate-200 bg-white px-4 py-2">📞 More Calls</div>
+                  <div class="rounded-full border border-slate-200 bg-white px-4 py-2">🤝 More Trust</div>
+                </div>
                 <div class="flex flex-col sm:flex-row items-center gap-4 pt-1">
                     <button type="button" id="openAuditModal" class="group inline-flex items-center justify-center w-full sm:w-auto rounded-2xl border border-blue-700 bg-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-200/60 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-700 hover:border-blue-800 hover:shadow-xl active:translate-y-0" data-en="Book My Free Audit" data-ne="मेरो निःशुल्क अडिट बुक गर्नुहोस्">
                       Book My Free Audit
@@ -357,7 +362,7 @@
         <!-- WHY BUSINESSES TRUST INVISIBLE -->
         <section class="py-14 sm:py-20 reveal">
           <div class="max-w-4xl mx-auto mb-10">
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-center mb-6">Why Businesses Trust Invisible</h2>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-center mb-6">What You Actually Get</h2>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-10">
             <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
@@ -365,28 +370,28 @@
                 <span class="text-blue-600 text-2xl font-black">G</span>
               </div>
               <h3 class="font-bold text-lg mb-2 text-center">Google Business Optimization</h3>
-              <p class="text-slate-600 text-center text-base">Show up higher and more often on Google with a fully optimized profile.</p>
+              <p class="text-slate-600 text-center text-base">Rank higher when nearby customers search for your service.</p>
             </div>
             <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
               <div class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
                 <span class="text-blue-600 text-2xl font-black">C</span>
               </div>
-              <h3 class="font-bold text-lg mb-2 text-center">Competitor Analysis</h3>
-              <p class="text-slate-600 text-center text-base">See exactly how you compare to local competitors and where you can stand out.</p>
+              <h3 class="font-bold text-lg mb-2 text-center">Competitor Gap Report</h3>
+              <p class="text-slate-600 text-center text-base">See exactly where competitors outperform you and how to beat them.</p>
             </div>
             <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
               <div class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
                 <span class="text-blue-600 text-2xl font-black">R</span>
               </div>
-              <h3 class="font-bold text-lg mb-2 text-center">Review Strategy</h3>
-              <p class="text-slate-600 text-center text-base">Build trust and attract more customers with a proven review system.</p>
+              <h3 class="font-bold text-lg mb-2 text-center">Trust & Reviews</h3>
+              <p class="text-slate-600 text-center text-base">Increase credibility so more visitors become customers.</p>
             </div>
             <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
               <div class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
                 <span class="text-blue-600 text-2xl font-black">O</span>
               </div>
-              <h3 class="font-bold text-lg mb-2 text-center">Conversion Optimization</h3>
-              <p class="text-slate-600 text-center text-base">Turn more visitors into calls and bookings with a professional online presence.</p>
+              <h3 class="font-bold text-lg mb-2 text-center">Visibility Action Plan</h3>
+              <p class="text-slate-600 text-center text-base">Receive a clear, prioritized roadmap tailored to your business.</p>
             </div>
           </div>
         </section>
@@ -469,6 +474,10 @@
 
         <!-- BEFORE VS AFTER COMPARISON -->
         <section class="max-w-5xl mx-auto mb-16 reveal">
+          <div class="text-center mb-8">
+            <p class="text-sm uppercase tracking-[0.18em] text-blue-600 font-semibold">Transformation</p>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-black tracking-tight">The Difference Customers Notice</h2>
+          </div>
           <div class="flex flex-col lg:flex-row gap-8 rounded-3xl border border-blue-200 bg-white shadow-lg overflow-hidden">
             <div class="flex-1 p-8 sm:p-12 bg-slate-50">
               <h3 class="text-xl font-black mb-4 text-slate-800">Before Optimization</h3>
@@ -579,6 +588,12 @@
      data-en="Final Step" data-ne="अन्तिम चरण">
     Final Step
   </p>
+
+  <div class="mb-6 flex flex-wrap gap-3">
+    <span class="rounded-full bg-green-50 border border-green-200 px-4 py-2 text-sm font-semibold text-green-700">✓ Free Audit</span>
+    <span class="rounded-full bg-blue-50 border border-blue-200 px-4 py-2 text-sm font-semibold text-blue-700">✓ Personalized Report</span>
+    <span class="rounded-full bg-purple-50 border border-purple-200 px-4 py-2 text-sm font-semibold text-purple-700">✓ No Obligation</span>
+  </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-14 items-start">
 

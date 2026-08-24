@@ -1,907 +1,434 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visibility Audit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Launch a professional dental clinic website from ₹3,000 with Full Stack Solution.">
+    <title>Full Stack Solution | Dental Clinic Websites from ₹3,000</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' } }, boxShadow: { soft: '0 22px 60px -18px rgba(30, 64, 175, .16)' } } } };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+        rel="stylesheet">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        /* Nepali language lighter typography */
-        body.nepali h1,
-        body.nepali h2,
-        body.nepali h3,
-        body.nepali .font-black {
-          font-weight: 700 !important;
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
         }
 
-        body.nepali .font-bold {
-          font-weight: 600 !important;
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', system-ui, sans-serif;
         }
 
-        body.nepali .font-semibold {
-          font-weight: 500 !important;
+        summary::-webkit-details-marker {
+            display: none;
         }
-        body::before{
-          content:"";
-          position:fixed;
-          inset:0;
-          pointer-events:none;
-          background:
-            radial-gradient(circle at 85% 8%, rgba(37,99,235,.10), transparent 28%),
-            radial-gradient(circle at 12% 70%, rgba(99,102,241,.08), transparent 32%);
-          z-index:-1;
-        }
-
-        html{
-          scroll-behavior:smooth;
-        }
-
-        @keyframes fadeInUp{
-          from{
-            opacity:0;
-            transform:translateY(40px);
-          }
-          to{
-            opacity:1;
-            transform:translateY(0);
-          }
-        }
-
-        .reveal{
-          opacity:0;
-          transform:translateY(40px);
-          transition:opacity .7s ease, transform .7s ease;
-        }
-
-        .reveal.visible{
-          opacity:1;
-          transform:translateY(0);
-        }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes floatCard {
-          0%,100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
-        }
-
-        .hero-content {
-          animation: fadeUp .8s ease-out both;
-        }
-
-        .hero-visual {
-          animation: fadeUp .8s ease-out .15s both, floatCard 6s ease-in-out infinite;
-        }
-
-        details summary{list-style:none;}
-        details summary::-webkit-details-marker{display:none;}
-
-        details span{
-          transition:transform .3s ease;
-        }
-
-        details[open] span{
-          transform:rotate(45deg);
-        }
-
-
-        a[class*="bg-blue-600"]{
-          position:relative;
-          overflow:hidden;
-        }
-
-        a[class*="bg-blue-600"]::after{
-          content:"";
-          position:absolute;
-          inset:0;
-          background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);
-          transform:translateX(-150%);
-        }
-
-        a[class*="bg-blue-600"]:hover::after{
-          animation:shine .8s ease;
-        }
-
-        @keyframes shine{
-          from{transform:translateX(-150%)}
-          to{transform:translateX(150%)}
-        }
-
-#langToggle{
-  animation:floatLanguage 4s ease-in-out infinite;
-}
-
-@keyframes floatLanguage{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-}
-
-@media (max-width:640px){
-  #langToggle{
-    right:16px;
-    bottom:16px;
-    padding:.7rem .9rem;
-  }
-}
     </style>
 </head>
-<body class="text-slate-900 bg-white antialiased">
 
-    <!-- Nav -->
-    <nav class="sticky top-0 z-50 flex justify-center px-3">
-      <div class="flex flex-wrap justify-center items-center gap-2 w-full max-w-md sm:w-auto rounded-b-3xl border-x border-b border-slate-200 bg-white/95 backdrop-blur-md px-3 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
-        <a href="#solution" class="px-4 py-2 text-xs sm:text-sm rounded-full font-medium text-slate-700 transition-all duration-300 hover:bg-blue-50 hover:text-blue-700"
-           data-en="How It Works" data-ne="यसरी काम गर्छ">How It Works</a>
-        <a href="#audit" class="px-4 py-2 text-xs sm:text-sm rounded-full font-medium text-slate-700 transition-all duration-300 hover:bg-blue-50 hover:text-blue-700 relative before:absolute before:-top-1 before:-right-1 before:h-2 before:w-2 before:rounded-full before:bg-yellow-400 before:animate-ping"
-           data-en="Free Audit" data-ne="निःशुल्क अडिट">Free Audit</a>
-        <a href="#faq" class="px-4 py-2 text-xs sm:text-sm rounded-full font-medium text-slate-700 transition-all duration-300 hover:bg-blue-50 hover:text-blue-700"
-           data-en="FAQs" data-ne="प्रश्नहरू">FAQs</a>
-      </div>
-    </nav>
+<body class="overflow-x-hidden bg-white text-slate-800">
+    <!--
+    SETUP: Replace FORM_WEBHOOK_URL_HERE below with your Power Automate HTTP webhook URL.
+    In Power Automate, create: When an HTTP request is received → Add a row into an Excel table.
+    A regular Excel share link cannot directly accept form data, so the webhook is required.
+  -->
 
-    <button id="langToggle" class="group fixed bottom-6 right-6 z-[999] flex items-center gap-3 rounded-full border border-slate-200 bg-white/95 backdrop-blur-xl px-4 py-3 shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-blue-300 hover:shadow-[0_20px_60px_rgba(37,99,235,.25)] active:scale-100">
-      <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white transition-all duration-300 group-hover:rotate-12 group-hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m-4 0a18 18 0 004 8 18 18 0 01-4 8m5-4h11M16 13l2-2 2 2m-2-2v10"/>
-        </svg>
-      </div>
-      <div class="leading-none">
-        <div class="text-[10px] uppercase tracking-[0.22em] text-slate-400">Language</div>
-        <div id="langLabel" class="mt-1 text-sm font-bold text-slate-800">नेपाली</div>
-      </div>
-    </button>
+    <header class="sticky top-0 z-40 border-b border-slate-100 bg-white/90 backdrop-blur-xl">
+        <div class="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-7">
+            <a href="#top" class="flex items-center gap-3" aria-label="Full Stack Solution home">
+                <img src="./logo.png" alt="Full Stack Solution" class="h-10 w-10 rounded-xl object-contain">
+                <span class="leading-tight"><strong class="block font-bold tracking-tight text-slate-900">Full Stack
+                        Solution</strong><small
+                        class="block text-[9px] font-bold uppercase tracking-[.15em] text-blue-700">Dental
+                        websites</small></span>
+            </a>
 
-    <main class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-14 lg:py-20 space-y-24 lg:space-y-32">
+            <nav class="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex"
+                aria-label="Primary navigation">
+                <a class="transition hover:text-blue-700" href="#packages">Packages</a>
+                <a class="transition hover:text-blue-700" href="#process">How it works</a>
+                <a class="transition hover:text-blue-700" href="#faq">FAQ</a>
+            </nav>
 
-        <!-- 1. HERO -->
-        <section class="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-start min-h-[60vh] pt-2 reveal">
-            <div class="hero-content space-y-5 max-w-3xl pt-0 text-center lg:text-left items-center lg:items-start flex flex-col">
-                <div class="inline-flex items-center rounded-full border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 self-center lg:self-start"
-                  data-en="LOCAL VISIBILITY SYSTEM" data-ne="स्थानीय दृश्यता प्रणाली">LOCAL VISIBILITY SYSTEM
-                </div>
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-[-0.03em] leading-tight max-w-3xl"
-                    data-en="When customers search nearby, will they choose your business or your competitor?"
-                    data-ne="ग्राहकहरूले नजिकै खोज्दा, उनीहरूले तपाईंको व्यवसाय रोज्छन् कि प्रतिस्पर्धीको?">
-                    When customers search nearby, will they choose your business or your competitor?
-                </h1>
-                <p class="text-base lg:text-lg text-slate-600 leading-7 max-w-md lg:max-w-xl"
-                   data-en="Every day, potential customers search for businesses like yours. If they don't find and trust your business, they'll choose your competitor instead."
-                   data-ne="हरेक दिन सम्भावित ग्राहकहरूले तपाईं जस्तै व्यवसाय खोज्छन्। यदि उनीहरूले तपाईंको व्यवसाय फेला पार्न सकेनन् वा विश्वास गर्न सकेनन् भने, उनीहरूले प्रतिस्पर्धीलाई रोज्नेछन्।">
-                    Every day, potential customers search for businesses like yours. If they don't find and trust your business, they'll choose your competitor instead.
-                </p>
-                <div class="flex flex-wrap justify-center lg:justify-start gap-3 text-sm font-medium text-slate-700">
-                  <div class="rounded-full border border-slate-200 bg-white px-4 py-2">⭐ Google Visibility</div>
-                  <div class="rounded-full border border-slate-200 bg-white px-4 py-2">📞 More Calls</div>
-                  <div class="rounded-full border border-slate-200 bg-white px-4 py-2">🤝 More Trust</div>
-                </div>
-                <div class="flex flex-col sm:flex-row items-center gap-4 pt-1">
-                    <button type="button" id="openAuditModal" class="group inline-flex items-center justify-center w-full sm:w-auto rounded-2xl border border-blue-700 bg-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-200/60 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-700 hover:border-blue-800 hover:shadow-xl active:translate-y-0" data-en="Book My Free Audit" data-ne="मेरो निःशुल्क अडिट बुक गर्नुहोस्">
-                      Book My Free Audit
-                    </button>
-                    <a href="#solution" class="font-semibold text-slate-900 border-b border-slate-900 pb-1 hover:text-slate-600 hover:border-slate-600 transition hidden sm:inline-block"
-                      data-en="See How It Works" data-ne="यसरी काम गर्छ हेर्नुहोस्">See How It Works</a>
-                </div>
-                <ul class="text-xs text-blue-600 space-y-1.5 font-medium">
-                    <li data-en="✓ Free Audit • 15 Minutes • Personalized Report • No Obligation"
-                        data-ne="✓ निःशुल्क अडिट • १५ मिनेट • व्यक्तिगत रिपोर्ट • कुनै बाध्यता छैन">✓ Free Audit • 15 Minutes • Personalized Report • No Obligation</li>
-                </ul>
+            <a href="#book-call"
+                class="hidden rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 md:inline-flex">Book
+                a 15-min call</a>
+
+            <button id="menu-button"
+                class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 text-slate-700 md:hidden"
+                aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+                <span class="text-xl">☰</span>
+            </button>
+        </div>
+        <nav id="mobile-menu" class="hidden border-t border-slate-100 bg-white px-5 py-4 md:hidden"
+            aria-label="Mobile navigation">
+            <div class="grid gap-1 text-sm font-semibold text-slate-700">
+                <a class="rounded-lg px-3 py-3 hover:bg-blue-50" href="#packages">Packages</a>
+                <a class="rounded-lg px-3 py-3 hover:bg-blue-50" href="#process">How it works</a>
+                <a class="rounded-lg px-3 py-3 hover:bg-blue-50" href="#faq">FAQ</a>
+                <a class="mt-2 rounded-xl bg-blue-600 px-4 py-3 text-center text-white" href="#book-call">Book a 15-min
+                    call</a>
             </div>
-            <div class="hero-visual bg-white border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-500 w-full max-w-full lg:max-w-[560px] mx-auto p-6">
-              <div class="border border-slate-200 bg-white">
-                <div class="px-6 py-5 border-b border-slate-200">
-                  <div class="h-10 border border-blue-300 flex items-center px-4 text-sm">
-                    <span class="text-blue-600 font-semibold">Google Search</span> dentist near me
-                  </div>
+        </nav>
+    </header>
+
+    <main id="top">
+        <section
+            class="relative overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white pb-20 pt-16 sm:pb-28 sm:pt-24">
+            <div class="absolute -right-40 -top-52 h-[520px] w-[520px] rounded-full bg-blue-200/40 blur-3xl"></div>
+            <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-7 lg:grid-cols-2">
+                <div class="text-center lg:text-left">
+                    <span
+                        class="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-3 py-1.5 text-xs font-bold text-blue-800 shadow-sm"><span
+                            class="h-2 w-2 rounded-full bg-blue-500"></span> Made specifically for dental clinics</span>
+                    <h1
+                        class="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                        Launch your clinic online with a <span class="text-blue-600">₹3,000 website</span> you can see
+                        first.</h1>
+                    <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-600 lg:mx-0">Start with a
+                        professionally designed, ready-made dental website. We add your logo, clinic information and
+                        services—then you can upgrade when your clinic needs more.</p>
+                    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start"><a
+                            href="#book-call"
+                            class="rounded-xl bg-blue-600 px-7 py-4 text-center font-bold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700">Book
+                            a 15-min call →</a></div>
+                    <p class="mt-4 text-sm font-medium text-slate-500">We’ll explain the package, answer your questions
+                        and show what happens next on a Google Meet call.</p>
                 </div>
 
-                <div class="p-6 space-y-6">
-                  <div>
-                    <div class="text-xs text-blue-500 mb-1">Sponsored</div>
-                    <div class="h-4 w-64 bg-slate-300 mb-2"></div>
-                    <div class="h-3 w-40 bg-slate-200"></div>
-                  </div>
-
-                  <div class="border-l-4 border-blue-600 pl-4 py-1">
-                    <div class="text-xs uppercase tracking-widest text-blue-500 mb-2">Your Business</div>
-                    <div class="h-5 w-56 bg-blue-600 mb-3"></div>
-                    <div class="flex items-center gap-2 mb-3">
-                      <div class="text-amber-500 text-sm">★★★★★</div>
-                      <div class="text-xs text-blue-600">4.9 (184 reviews)</div>
+                <div class="relative mx-auto min-h-[320px] w-full max-w-xl sm:min-h-[420px]">
+                    <div
+                        class="absolute left-0 right-5 top-0 overflow-hidden rounded-2xl border-[6px] border-white bg-white shadow-soft sm:left-5 sm:right-8">
+                        <div class="flex h-9 items-center gap-1.5 bg-slate-100 px-3"><i
+                                class="h-2 w-2 rounded-full bg-red-300"></i><i
+                                class="h-2 w-2 rounded-full bg-amber-300"></i><i
+                                class="h-2 w-2 rounded-full bg-emerald-300"></i><span
+                                class="ml-2 h-4 w-1/2 rounded-full bg-slate-200"></span></div>
+                        <div
+                            class="relative h-[245px] overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-100 p-6 sm:h-[315px] sm:p-9">
+                            <div class="flex justify-between text-[9px] font-bold text-slate-600 sm:text-[10px]"><span
+                                    class="flex items-center gap-2"><b
+                                        class="grid h-6 w-6 place-items-center rounded-lg bg-blue-600 text-white">+</b>
+                                    BrightSmile Dental</span><span
+                                    class="hidden gap-3 sm:flex"><i>Home</i><i>Services</i><i>Doctors</i></span></div>
+                            <div class="mt-10 max-w-[300px] sm:mt-14">
+                                <p class="text-[9px] font-extrabold uppercase tracking-widest text-blue-600">Modern
+                                    dental care</p>
+                                <h2
+                                    class="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl">
+                                    A more confident smile starts here.</h2>
+                                <p class="mt-3 text-[10px] text-slate-500 sm:text-xs">Comfort-first, modern dentistry
+                                    for your whole family.</p><span
+                                    class="mt-4 inline-block rounded-full bg-blue-600 px-4 py-2 text-[9px] font-bold text-white">Book
+                                    an appointment</span>
+                            </div>
+                            <div class="absolute -right-12 bottom-0 h-52 w-52 rounded-full bg-blue-200/40 blur-2xl">
+                            </div>
+                        </div>
                     </div>
-                    <div class="space-y-2">
-                      <div class="h-3 w-full bg-slate-100"></div>
-                      <div class="h-3 w-4/5 bg-slate-100"></div>
+                    <div
+                        class="absolute bottom-0 right-0 w-28 rotate-[5deg] rounded-[25px] border-[5px] border-slate-900 bg-slate-900 p-1.5 shadow-2xl sm:w-36">
+                        <div class="mx-auto mb-1 h-1.5 w-11 rounded-full bg-slate-600"></div>
+                        <div class="h-44 rounded-[15px] bg-gradient-to-br from-blue-50 to-white p-3 sm:h-56">
+                            <p class="text-[8px] font-extrabold text-blue-700">BrightSmile</p>
+                            <h3
+                                class="mt-7 text-base font-extrabold leading-none tracking-tight text-slate-900 sm:text-xl">
+                                Care that makes you smile.</h3>
+                            <p class="mt-2 text-[7px] text-slate-500">Modern dentistry. Thoughtful care.</p><span
+                                class="mt-3 inline-block rounded-full bg-blue-600 px-2 py-1.5 text-[7px] font-bold text-white">Book
+                                now</span>
+                        </div>
                     </div>
-                  </div>
-
-                  <div>
-                    <div class="h-4 w-52 bg-slate-300 mb-2"></div>
-                    <div class="h-3 w-44 bg-slate-200"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </section>
-
-
-        <!-- 2. PROBLEM -->
-        <section class="py-8 space-y-12 reveal">
-            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600"
-               data-en="The Problem" data-ne="समस्या">The Problem</p>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.02em] leading-tight max-w-2xl"
-                data-en="You're Losing Customers Before They Even Contact You"
-                data-ne="ग्राहकहरूले तपाईंलाई सम्पर्क गर्नु अघि नै तपाईंलाई गुमाइरहेका छन्">
-                You're Losing Customers Before They Even Contact You
-            </h2>
-            <p class="max-w-3xl text-lg leading-8 text-slate-600"
-               data-en="Customers are already searching for businesses like yours. The problem isn't demand—it's that your business isn't making the right first impression when they find you."
-               data-ne="ग्राहकहरू पहिले नै तपाईं जस्तै व्यवसाय खोजिरहेका छन्। समस्या माग होइन—तपाईंको व्यवसायले सही पहिलो छाप बनाउन सकेको छैन।">
-              Customers are already searching for businesses like yours. The problem isn't demand—it's that your business isn't making the right first impression when they find you.
-            </p>
-            <div class="grid grid-cols-1 lg:grid-cols-3 mt-12 border-y border-slate-200 gap-10 lg:gap-20">
-                <div class="bg-white p-8 lg:p-10 border-r last:border-r-0 border-slate-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-white">
-                    <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-6"
-                      data-en="01" data-ne="०१">01</div>
-                    <h3 class="text-2xl font-black mb-4 tracking-tight"
-                      data-en="Not Showing on Google" data-ne="गुगलमा देखिँदैन">Not Showing on Google</h3>
-                    <p class="text-base lg:text-lg leading-7 text-slate-600"
-                       data-en="Potential customers search for your service, but your business is missing from Google results."
-                       data-ne="सम्भावित ग्राहकहरूले तपाईंको सेवा खोज्दा, तपाईंको व्यवसाय गुगल नतिजामा देखिँदैन।">
-                      Potential customers search for your service, but your business is missing from Google results.
-                    </p>
-                </div>
-                <div class="bg-white p-8 lg:p-10 border-r last:border-r-0 border-slate-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-white">
-                    <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-6"
-                      data-en="02" data-ne="०२">02</div>
-                    <h3 class="text-2xl font-black mb-4 tracking-tight"
-                      data-en="Visitors Don't Trust You Yet" data-ne="अझै विश्वास पाएका छैनन्">Visitors Don't Trust You Yet</h3>
-                    <p class="text-base lg:text-lg leading-7 text-slate-600"
-                       data-en="A weak first impression online means customers hesitate and pick a competitor instead."
-                       data-ne="कमजोर पहिलो छापले गर्दा ग्राहकहरू हिचकिचाउँछन् र प्रतिस्पर्धी रोज्छन्।">
-                      A weak first impression online means customers hesitate and pick a competitor instead.
-                    </p>
-                </div>
-                <div class="bg-white p-8 lg:p-10 border-r last:border-r-0 border-slate-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-white">
-                    <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-6"
-                      data-en="03" data-ne="०३">03</div>
-                    <h3 class="text-2xl font-black mb-4 tracking-tight"
-                      data-en="Missed Calls & Bookings" data-ne="कल र बुकिङ छुट्यो">Missed Calls & Bookings</h3>
-                    <p class="text-base lg:text-lg leading-7 text-slate-600"
-                       data-en="Customers end up contacting your competitors because they can't easily find or trust you."
-                       data-ne="ग्राहकहरूले तपाईंलाई सजिलै फेला नपारेपछि वा विश्वास नगरेपछि प्रतिस्पर्धीलाई सम्पर्क गर्छन्।">
-                      Customers end up contacting your competitors because they can't easily find or trust you.
-                    </p>
+                    <div
+                        class="absolute bottom-1 right-20 rounded-xl border border-blue-100 bg-white px-3 py-2 text-[10px] font-bold text-blue-700 shadow-lg sm:right-28 sm:text-xs">
+                        ✓ Desktop + mobile ready</div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. CONSEQUENCES -->
-        <section class="py-12 reveal">
-          <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-20 items-start">
-
-            <div>
-              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 mb-4"
-                 data-en="The Cost" data-ne="खर्च">The Cost</p>
-              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] leading-tight max-w-xl"
-                  data-en="Every missed search quietly becomes someone else's customer."
-                  data-ne="प्रत्येक छुटेको खोजी चुपचाप अरूको ग्राहक बन्छ।">
-                Every missed search quietly becomes someone else's customer.
-              </h2>
-              <p class="mt-6 text-lg leading-8 text-slate-600 max-w-lg"
-                 data-en="You never see the customers who leave. They search, compare, trust another business, and book before you even know they existed."
-                 data-ne="तपाईंले कहिल्यै ती ग्राहकहरू देख्न सक्नुहुन्न जो गुम्छन्। उनीहरूले खोज्छन्, तुलना गर्छन्, अर्को व्यवसायमा विश्वास गर्छन् र तपाईंलाई थाहा नपाउँदै बुक गर्छन्।">
-                You never see the customers who leave. They search, compare, trust another business, and book before you even know they existed.
-              </p>
-              <div class="mt-10 border border-slate-200 bg-white p-6">
-                <p class="text-xs uppercase tracking-[0.18em] text-blue-600 mb-2"
-                   data-en="Reality Check" data-ne="वास्तविकता जाँच">Reality Check</p>
-                <p class="text-2xl font-black leading-snug"
-                   data-en="How many potential customers searched today and chose someone else?"
-                   data-ne="आज कति सम्भावित ग्राहकहरूले खोजे र अरूलाई रोजे?">
-                  How many potential customers searched today and chose someone else?
-                </p>
-              </div>
+        <section id="packages" class="scroll-mt-24 py-20 sm:py-28">
+            <div class="mx-auto max-w-7xl px-5 sm:px-7">
+                <div class="mx-auto max-w-2xl text-center">
+                    <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">Choose your starting point</p>
+                    <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Three ways to
+                        build your clinic’s online presence.</h2>
+                    <p class="mt-4 text-slate-600">Most clinics begin with the ₹3,000 template. It gives you a polished
+                        foundation without paying for a custom project on day one.</p>
+                </div>
+                <div class="mt-12 grid gap-5 lg:grid-cols-3">
+                    <article
+                        class="relative flex flex-col rounded-3xl border-2 border-blue-600 bg-white p-7 shadow-soft">
+                        <span
+                            class="absolute -top-3 left-7 rounded-full bg-blue-600 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">Best
+                            for Meta ads</span>
+                        <p class="mt-2 text-xs font-bold uppercase tracking-wider text-blue-700">01 · Ready-made
+                            template</p>
+                        <h3 class="mt-3 text-2xl font-extrabold text-slate-950">Dental starter website</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600">A professional, one-page dental website
+                            based on a proven layout—personalized with your clinic’s details.</p>
+                        <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">₹3,000</p>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-600">
+                            <li>✓ Your logo, colours and clinic details</li>
+                            <li>✓ Services, doctor and contact sections</li>
+                            <li>✓ Mobile responsive layout</li>
+                            <li>✓ Enquiry form and Google Maps</li>
+                            <li>✓ Can be upgraded later</li>
+                        </ul><a href="#book-call"
+                            class="mt-8 rounded-xl bg-blue-600 px-5 py-3.5 text-center text-sm font-bold text-white transition hover:bg-blue-700">Book
+                            a call about ₹3,000 →</a>
+                    </article>
+                    <article class="flex flex-col rounded-3xl border border-slate-200 bg-slate-50 p-7">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">02 · Built for your
+                            campaign</p>
+                        <h3 class="mt-3 text-2xl font-extrabold text-slate-950">Custom landing page</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600">A focused landing page designed around
+                            one offer, service or marketing campaign for your clinic.</p>
+                        <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">₹5,000</p>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-600">
+                            <li>✓ Custom page structure and copy</li>
+                            <li>✓ Campaign-focused enquiry flow</li>
+                            <li>✓ Your branding and imagery</li>
+                            <li>✓ Mobile optimized design</li>
+                            <li>✓ Ideal for a specific service or offer</li>
+                        </ul><a href="#book-call"
+                            class="mt-8 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-center text-sm font-bold text-slate-800 transition hover:border-blue-600 hover:text-blue-700">Discuss
+                            this option →</a>
+                    </article>
+                    <article class="flex flex-col rounded-3xl border border-slate-200 bg-slate-50 p-7">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">03 · Upgrade when ready</p>
+                        <h3 class="mt-3 text-2xl font-extrabold text-slate-950">Complete clinic website</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600">When you need more pages, services,
+                            doctors and detail, upgrade from the starter foundation.</p>
+                        <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">₹15k–₹20k</p>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-600">
+                            <li>✓ Multi-page clinic website</li>
+                            <li>✓ Treatment and service pages</li>
+                            <li>✓ Doctor profiles, gallery and more</li>
+                            <li>✓ Basic SEO and analytics setup</li>
+                            <li>✓ ₹3,000 starter credited on upgrade</li>
+                        </ul><a href="#book-call"
+                            class="mt-8 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-center text-sm font-bold text-slate-800 transition hover:border-blue-600 hover:text-blue-700">Plan
+                            your upgrade →</a>
+                    </article>
+                </div>
             </div>
+        </section>
 
-            <div class="border border-slate-200 bg-white divide-y divide-slate-200">
+        <section class="bg-slate-950 py-20 text-white sm:py-28">
+            <div class="mx-auto max-w-5xl px-5 text-center sm:px-7">
+                <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-300">Why start with the template?</p>
+                <h2 class="mx-auto mt-3 max-w-3xl text-3xl font-extrabold tracking-tight sm:text-4xl">See the quality
+                    first. Spend more only when your clinic needs more.</h2>
+                <p class="mx-auto mt-5 max-w-2xl text-slate-300">The ₹3,000 starter is not a mockup. It’s a real website
+                    customized for your clinic. You get a clear, lower-risk place to begin and a simple path to grow
+                    later.</p><a href="#book-call"
+                    class="mt-8 inline-flex rounded-xl bg-blue-500 px-6 py-3.5 font-bold text-white transition hover:bg-blue-400">Book
+                    a 15-min Google Meet call →</a>
+            </div>
+        </section>
 
-              <div class="group flex justify-between gap-8 p-8 lg:p-10 transition-all duration-300 hover:bg-blue-50">
+        <section id="process" class="scroll-mt-24 bg-slate-50 py-20 sm:py-28">
+            <div class="mx-auto max-w-7xl px-5 sm:px-7">
+                <div class="mx-auto max-w-2xl text-center">
+                    <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">A clear process</p>
+                    <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">What happens
+                        after you enquire?</h2>
+                    <p class="mt-4 text-slate-600">Submit the form and we’ll contact you to arrange a short Google Meet
+                        conversation.</p>
+                </div>
+                <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <article class="rounded-2xl border border-slate-200 bg-white p-6"><span
+                            class="text-3xl font-extrabold text-blue-200">01</span>
+                        <h3 class="mt-5 font-extrabold text-slate-900">Fill the form</h3>
+                        <p class="mt-2 text-sm text-slate-600">Tell us your clinic name, city and which package
+                            interests you.</p>
+                    </article>
+                    <article class="rounded-2xl border border-slate-200 bg-white p-6"><span
+                            class="text-3xl font-extrabold text-blue-200">02</span>
+                        <h3 class="mt-5 font-extrabold text-slate-900">We contact you</h3>
+                        <p class="mt-2 text-sm text-slate-600">Our team follows up and arranges a convenient time to
+                            talk.</p>
+                    </article>
+                    <article class="rounded-2xl border border-slate-200 bg-white p-6"><span
+                            class="text-3xl font-extrabold text-blue-200">03</span>
+                        <h3 class="mt-5 font-extrabold text-slate-900">15-min Google Meet</h3>
+                        <p class="mt-2 text-sm text-slate-600">We explain the options, your website and what you’ll need
+                            to provide.</p>
+                    </article>
+                    <article class="rounded-2xl border border-slate-200 bg-white p-6"><span
+                            class="text-3xl font-extrabold text-blue-200">04</span>
+                        <h3 class="mt-5 font-extrabold text-slate-900">Choose your package</h3>
+                        <p class="mt-2 text-sm text-slate-600">Start with ₹3,000 or select the right solution for your
+                            goal.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="scroll-mt-24 py-20 sm:py-28">
+            <div class="mx-auto grid max-w-6xl gap-10 px-5 sm:px-7 lg:grid-cols-[.72fr_1.28fr]">
                 <div>
-                  <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-3"
-                    data-en="01" data-ne="०१">01</div>
-                  <h3 class="text-2xl font-black mb-2"
-                    data-en="Lost Trust" data-ne="विश्वास गुमाउनु">Lost Trust</h3>
-                  <p class="text-slate-600 leading-7"
-                     data-en="Customers judge your credibility in seconds based on what they see online."
-                     data-ne="ग्राहकहरूले अनलाइन देखेको आधारमा केही सेकेन्डमै तपाईंको विश्वसनीयता मूल्यांकन गर्छन्।">
-                    Customers judge your credibility in seconds based on what they see online.
-                  </p>
+                    <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">Questions answered</p>
+                    <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Simple from the
+                        first call.</h2>
+                    <p class="mt-4 text-slate-600">You’ll have a short Google Meet call before choosing anything, so you
+                        know exactly what you’re getting.</p>
                 </div>
-                <span class="text-5xl font-black text-slate-100 group-hover:text-slate-300 transition">→</span>
-              </div>
-
-              <div class="group flex justify-between gap-8 p-8 lg:p-10 transition-all duration-300 hover:bg-blue-50">
-                <div>
-                  <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-3"
-                    data-en="02" data-ne="०२">02</div>
-                  <h3 class="text-2xl font-black mb-2"
-                    data-en="Missed Calls & Bookings" data-ne="कल र बुकिङ छुट्यो">Missed Calls & Bookings</h3>
-                  <p class="text-slate-600 leading-7"
-                     data-en="Every missed Google search is a lost call or booking that goes to a competitor."
-                     data-ne="प्रत्येक छुटेको गुगल खोजी प्रतिस्पर्धीलाई गएको कल वा बुकिङ हो।">
-                    Every missed Google search is a lost call or booking that goes to a competitor.
-                  </p>
+                <div class="divide-y divide-slate-200">
+                    <details class="group py-5" open>
+                        <summary
+                            class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-slate-900">
+                            Is the ₹3,000 website a real website?<span
+                                class="text-xl text-blue-600 group-open:rotate-45">+</span></summary>
+                        <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">Yes. It is a live,
+                            mobile-responsive one-page website customized with your clinic’s information—not only a
+                            design preview.</p>
+                    </details>
+                    <details class="group py-5">
+                        <summary
+                            class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-slate-900">
+                            Can I upgrade later?<span class="text-xl text-blue-600 group-open:rotate-45">+</span>
+                        </summary>
+                        <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">Yes. Your ₹3,000 starter amount
+                            is credited toward the complete website package, so you pay only the remaining difference.
+                        </p>
+                    </details>
+                    <details class="group py-5">
+                        <summary
+                            class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-slate-900">
+                            What happens on the 15-minute call?<span
+                                class="text-xl text-blue-600 group-open:rotate-45">+</span></summary>
+                        <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">We meet on Google Meet, show you
+                            the options, answer questions and explain the information needed to customize your website.
+                        </p>
+                    </details>
+                    <details class="group py-5">
+                        <summary
+                            class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-slate-900">
+                            Do I need technical knowledge?<span
+                                class="text-xl text-blue-600 group-open:rotate-45">+</span></summary>
+                        <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">No. We handle the website setup
+                            and deployment. You only need to provide your clinic information and assets.</p>
+                    </details>
                 </div>
-                <span class="text-5xl font-black text-slate-100 group-hover:text-slate-300 transition">→</span>
-              </div>
+            </div>
+        </section>
 
-              <div class="group flex justify-between gap-8 p-8 lg:p-10 transition-all duration-300 hover:bg-blue-50">
-                <div>
-                  <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-3"
-                    data-en="03" data-ne="०३">03</div>
-                  <h3 class="text-2xl font-black mb-2"
-                    data-en="Competitors Win Customers First" data-ne="प्रतिस्पर्धीले ग्राहक जित्छ">Competitors Win Customers First</h3>
-                  <p class="text-slate-600 leading-7"
-                     data-en="Customers choose competitors who show up first and look more trustworthy online."
-                     data-ne="ग्राहकहरूले पहिले देखिने र विश्वासिलो देखिने प्रतिस्पर्धीलाई रोज्छन्।">
-                    Customers choose competitors who show up first and look more trustworthy online.
-                  </p>
+        <section id="book-call" class="scroll-mt-24 bg-gradient-to-br from-blue-700 to-blue-900 py-20 sm:py-28">
+            <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-7 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+                <div class="text-white">
+                    <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-200">Your next step</p>
+                    <h2 class="mt-3 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">Book your
+                        15-minute website call.</h2>
+                    <p class="mt-4 leading-relaxed text-blue-50">Fill this short form. We’ll contact you to arrange a
+                        Google Meet call, understand your clinic and help you choose the right website package.</p>
+                    <div class="mt-7 rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-blue-50"><strong
+                            class="block text-white">No payment is collected in this form.</strong> This is simply your
+                        request for a short consultation call.</div>
                 </div>
-                <span class="text-5xl font-black text-slate-100 group-hover:text-slate-300 transition">→</span>
-              </div>
-
+<form
+    action="https://script.google.com/macros/s/AKfycbyOWPZ3E6Gm4bWqScymfThT6QqC--nKnBZjM0X2gJBvRAi6QBkcw0NYJ0bDkdia9h-TnQ/exec"
+    method="POST"
+    target="hidden_iframe"
+    id="enquiry-form"
+    class="rounded-3xl bg-white p-6 shadow-2xl sm:p-8">                    <div id="form-fields" class="grid gap-4 sm:grid-cols-2"><label
+                            class="grid gap-1.5 text-sm font-semibold text-slate-700">Your name<input required
+                                name="name" autocomplete="name" placeholder="Dr. Sharma"
+                                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
+                            class="grid gap-1.5 text-sm font-semibold text-slate-700">Clinic name<input required
+                                name="clinic" placeholder="Sharma Dental Care"
+                                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
+                            class="grid gap-1.5 text-sm font-semibold text-slate-700">Phone number<input required
+                                name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="98765 43210"
+                                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
+                            class="grid gap-1.5 text-sm font-semibold text-slate-700">City<input required name="city"
+                                placeholder="Mumbai"
+                                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
+                            class="grid gap-1.5 text-sm font-semibold text-slate-700 sm:col-span-2">I’m interested
+                            in<select name="interestedIn"
+                                class="rounded-xl border border-slate-200 bg-white px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
+                                <option>₹3,000 Dental Starter Website</option>
+                                <option>₹5,000 Custom Landing Page</option>
+                                <option>₹15,000–₹20,000 Complete Website</option>
+                                <option>I’m not sure yet</option>
+                            </select></label><label
+                            class="grid gap-1.5 text-sm font-semibold text-slate-700 sm:col-span-2">Anything you’d like
+                            to discuss? <span class="font-normal text-slate-400">(optional)</span><textarea
+                                name="description" rows="3" placeholder="Tell us a little about your clinic or goal."
+                                class="resize-none rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></textarea></label><button
+                            class="rounded-xl bg-blue-600 px-5 py-3.5 font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 sm:col-span-2"
+                            type="submit">Request my 15-min Google Meet call →</button>
+                        <p class="text-center text-xs text-slate-500 sm:col-span-2">Your details are only used to
+                            contact you about your website enquiry.</p>
+                    </div>
+                    <div id="form-success" class="hidden py-8 text-center">
+                        <div
+                            class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-blue-100 text-2xl text-blue-700">
+                            ✓</div>
+                        <h3 class="mt-4 text-xl font-extrabold text-slate-900">Request received.</h3>
+                        <p class="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-600">Thank you. We’ll contact
+                            you to schedule your 15-minute Google Meet call.</p>
+                    </div>
+                </form>
             </div>
-
-          </div>
-        </section>
-
-        <!-- WHY BUSINESSES TRUST INVISIBLE -->
-        <section class="py-14 sm:py-20 reveal">
-          <div class="max-w-4xl mx-auto mb-10">
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-center mb-6">What You Actually Get</h2>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-10">
-            <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
-              <div class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
-                <span class="text-blue-600 text-2xl font-black">G</span>
-              </div>
-              <h3 class="font-bold text-lg mb-2 text-center">Google Business Optimization</h3>
-              <p class="text-slate-600 text-center text-base">Rank higher when nearby customers search for your service.</p>
-            </div>
-            <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
-              <div class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
-                <span class="text-blue-600 text-2xl font-black">C</span>
-              </div>
-              <h3 class="font-bold text-lg mb-2 text-center">Competitor Gap Report</h3>
-              <p class="text-slate-600 text-center text-base">See exactly where competitors outperform you and how to beat them.</p>
-            </div>
-            <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
-              <div class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
-                <span class="text-blue-600 text-2xl font-black">R</span>
-              </div>
-              <h3 class="font-bold text-lg mb-2 text-center">Trust & Reviews</h3>
-              <p class="text-slate-600 text-center text-base">Increase credibility so more visitors become customers.</p>
-            </div>
-            <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
-              <div class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
-                <span class="text-blue-600 text-2xl font-black">O</span>
-              </div>
-              <h3 class="font-bold text-lg mb-2 text-center">Visibility Action Plan</h3>
-              <p class="text-slate-600 text-center text-base">Receive a clear, prioritized roadmap tailored to your business.</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- 4. SOLUTION -->
-        <section id="solution" class="py-12 space-y-12 reveal">
-          <div class="max-w-3xl">
-            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 mb-4"
-               data-en="The Solution" data-ne="समाधान">The Solution</p>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] leading-tight"
-                data-en="A simple system that turns searches into customers."
-                data-ne="खोजीलाई ग्राहकमा बदल्ने सरल प्रणाली।">
-              A simple system that turns searches into customers.
-            </h2>
-            <p class="mt-6 text-lg leading-8 text-slate-600"
-               data-en="Instead of hoping people find your business, we improve every step of the journey—from discovery to trust to enquiries."
-               data-ne="मानिसहरूले तपाईंको व्यवसाय फेला पारून् भन्ने आशा गर्नुको सट्टा, हामी खोजीदेखि विश्वास र सोधपुछसम्मको प्रत्येक चरण सुधार गर्छौं।">
-              Instead of hoping people find your business, we improve every step of the journey—from discovery to trust to enquiries.
-            </p>
-          </div>
-
-          <div class="rounded-[2rem] bg-gradient-to-br from-slate-50 to-blue-50 p-4 lg:p-8 border border-slate-200">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 xl:gap-10 pt-10 items-stretch">
-              <div class="group border border-slate-200 bg-white lg:min-h-[360px] xl:min-h-[380px] p-8 xl:p-10 transition-all duration-300 hover:-translate-y-2 xl:hover:-translate-y-3 hover:shadow-xl rounded-3xl relative overflow-hidden before:absolute before:top-0 before:left-0 before:h-1 before:w-full before:bg-gradient-to-r before:from-blue-500 before:to-indigo-500">
-                <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-5"
-                  data-en="STEP 01" data-ne="चरण ०१">STEP 01</div>
-                <div class="absolute right-6 top-6 text-6xl font-black text-slate-100 select-none"
-                  data-en="1" data-ne="१">1</div>
-                <h3 class="text-2xl font-black mb-3"
-                  data-en="Audit" data-ne="अडिट">Audit</h3>
-                <p class="text-slate-600 leading-7"
-                   data-en="We identify exactly why customers aren't choosing your business online."
-                   data-ne="हामी किन ग्राहकहरूले अनलाइन तपाईंको व्यवसाय रोज्दैनन् भनेर ठ्याक्कै पत्ता लगाउँछौं।">
-                  We identify exactly why customers aren't choosing your business online.
-                </p>
-              </div>
-              <div class="group border border-slate-200 bg-white lg:min-h-[360px] xl:min-h-[380px] p-8 xl:p-10 transition-all duration-300 hover:-translate-y-2 xl:hover:-translate-y-3 hover:shadow-xl rounded-3xl relative overflow-hidden before:absolute before:top-0 before:left-0 before:h-1 before:w-full before:bg-gradient-to-r before:from-blue-500 before:to-indigo-500">
-                <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-5"
-                  data-en="STEP 02" data-ne="चरण ०२">STEP 02</div>
-                <div class="absolute right-6 top-6 text-6xl font-black text-slate-100 select-none"
-                  data-en="2" data-ne="२">2</div>
-                <h3 class="text-2xl font-black mb-3"
-                  data-en="Optimize" data-ne="सुधार">Optimize</h3>
-                <p class="text-slate-600 leading-7"
-                   data-en="Improve your Google profile, website, reviews, and overall online credibility."
-                   data-ne="तपाईंको गुगल प्रोफाइल, वेबसाइट, समीक्षाहरू र सम्पूर्ण अनलाइन विश्वसनीयता सुधार गर्नुहोस्।">
-                  Improve your Google profile, website, reviews, and overall online credibility.
-                </p>
-              </div>
-              <div class="group border border-slate-200 bg-white lg:min-h-[360px] xl:min-h-[380px] p-8 xl:p-10 transition-all duration-300 hover:-translate-y-2 xl:hover:-translate-y-3 hover:shadow-xl rounded-3xl relative overflow-hidden before:absolute before:top-0 before:left-0 before:h-1 before:w-full before:bg-gradient-to-r before:from-blue-500 before:to-indigo-500">
-                <div class="text-xs font-bold tracking-[0.2em] text-blue-500 mb-5"
-                  data-en="STEP 03" data-ne="चरण ०३">STEP 03</div>
-                <div class="absolute right-6 top-6 text-6xl font-black text-slate-100 select-none"
-                  data-en="3" data-ne="३">3</div>
-                <h3 class="text-2xl font-black mb-3"
-                  data-en="Convert" data-ne="रूपान्तरण">Convert</h3>
-                <p class="text-slate-600 leading-7"
-                   data-en="Visitors gain confidence and are far more likely to call or book."
-                   data-ne="आगन्तुकहरूले आत्मविश्वास पाउँछन् र फोन वा बुक गर्ने सम्भावना धेरै बढ्छ।">
-                  Visitors gain confidence and are far more likely to call or book.
-                </p>
-              </div>
-              <div class="group bg-gradient-to-br from-blue-600 to-indigo-600 text-white lg:min-h-[360px] xl:min-h-[380px] p-8 xl:p-10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 xl:hover:-translate-y-3 xl:border xl:border-blue-300 rounded-3xl relative overflow-hidden before:absolute before:top-0 before:left-0 before:h-1 before:w-full before:bg-gradient-to-r before:from-blue-500 before:to-indigo-500 shadow-2xl">
-                <div class="text-xs font-bold tracking-[0.2em] text-blue-100 mb-5"
-                  data-en="RESULT" data-ne="नतिजा">RESULT</div>
-                <div class="absolute right-6 top-6 text-6xl font-black text-white/10 select-none"
-                  data-en="✓" data-ne="✓">✓</div>
-                <h3 class="text-2xl font-black mb-3"
-                  data-en="More Customers" data-ne="बढी ग्राहक">More Customers</h3>
-                <p class="text-blue-100 leading-7"
-                   data-en="A stronger online presence creates consistent enquiries and predictable growth."
-                   data-ne="मजबुत अनलाइन उपस्थितिले निरन्तर सोधपुछ र अनुमान गर्न मिल्ने वृद्धि ल्याउँछ।">
-                  A stronger online presence creates consistent enquiries and predictable growth.
-                </p>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-        <!-- BEFORE VS AFTER COMPARISON -->
-        <section class="max-w-5xl mx-auto mb-16 reveal">
-          <div class="text-center mb-8">
-            <p class="text-sm uppercase tracking-[0.18em] text-blue-600 font-semibold">Transformation</p>
-            <h2 class="mt-2 text-3xl sm:text-4xl font-black tracking-tight">The Difference Customers Notice</h2>
-          </div>
-          <div class="flex flex-col lg:flex-row gap-8 rounded-3xl border border-blue-200 bg-white shadow-lg overflow-hidden">
-            <div class="flex-1 p-8 sm:p-12 bg-slate-50">
-              <h3 class="text-xl font-black mb-4 text-slate-800">Before Optimization</h3>
-              <ul class="space-y-3 text-slate-600 text-base">
-                <li class="flex items-center"><span class="mr-3 text-slate-400">•</span>Hard to find</li>
-                <li class="flex items-center"><span class="mr-3 text-slate-400">•</span>Few reviews</li>
-                <li class="flex items-center"><span class="mr-3 text-slate-400">•</span>Weak website</li>
-                <li class="flex items-center"><span class="mr-3 text-slate-400">•</span>Customers choose competitors</li>
-              </ul>
-            </div>
-            <div class="flex-1 p-8 sm:p-12 bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200">
-              <h3 class="text-xl font-black mb-4 text-blue-700">After Optimization</h3>
-              <ul class="space-y-3 text-blue-800 text-base font-semibold">
-                <li class="flex items-center"><span class="mr-3 text-blue-400">•</span>Top Google visibility</li>
-                <li class="flex items-center"><span class="mr-3 text-blue-400">•</span>Strong reviews</li>
-                <li class="flex items-center"><span class="mr-3 text-blue-400">•</span>Professional website</li>
-                <li class="flex items-center"><span class="mr-3 text-blue-400">•</span>More calls & bookings</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- FAQ -->
-        <section id="faq" class="max-w-6xl mx-auto py-20 lg:py-24 border-t border-slate-200 reveal">
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 mb-4"
-             data-en="Quick Questions" data-ne="छिटो प्रश्नहरू">Quick Questions</p>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-12"
-              data-en="Common doubts before booking." data-ne="बुक गर्नु अघि सामान्य शंका।">
-            Common doubts before booking.
-          </h2>
-          <p class="max-w-2xl text-lg leading-8 text-slate-600 mb-12"
-             data-en="Everything local business owners usually want to know before booking a free visibility audit."
-             data-ne="स्थानीय व्यवसाय मालिकहरूले निःशुल्क दृश्यता अडिट बुक गर्नु अघि जान्न चाहने सबै कुरा।">
-            Everything local business owners usually want to know before booking a free visibility audit.
-          </p>
-
-          <div class="space-y-4">
-
-            <details class="group rounded-3xl border border-slate-200 bg-white p-8 lg:p-10 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-blue-200 open:bg-blue-50">
-              <summary class="cursor-pointer list-none flex justify-between items-center text-lg font-semibold">
-                <span data-en="We already get customers through referrals."
-                      data-ne="हामी पहिले नै सिफारिसबाट ग्राहकहरू पाउँछौं।">
-                  We already get customers through referrals.
-                </span>
-                <span class="transition group-open:rotate-45 text-2xl">+</span>
-              </summary>
-              <p class="mt-6 text-slate-600 leading-8 max-w-3xl"
-                 data-en="That's great. This system isn't meant to replace referrals—it helps you capture the customers who are already searching online and would otherwise choose a competitor."
-                 data-ne="त्यो राम्रो हो। यो प्रणाली सिफारिसलाई प्रतिस्थापन गर्न होइन—यो अनलाइन खोजिरहेका र अन्यथा प्रतिस्पर्धी रोज्ने ग्राहकहरूलाई तपाईंले पक्रन सहयोग गर्छ।">
-                That's great. This system isn't meant to replace referrals—it helps you capture the customers who are already searching online and would otherwise choose a competitor.
-              </p>
-            </details>
-
-            <details class="group rounded-3xl border border-slate-200 bg-white p-8 lg:p-10 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-blue-200 open:bg-blue-50">
-              <summary class="cursor-pointer list-none flex justify-between items-center text-lg font-semibold">
-                <span data-en="How long does it take to see results?"
-                      data-ne="नतिजा देखिन कति समय लाग्छ?">
-                  How long does it take to see results?
-                </span>
-                <span class="transition group-open:rotate-45 text-2xl">+</span>
-              </summary>
-              <p class="mt-6 text-slate-600 leading-8 max-w-3xl"
-                 data-en="It depends on your current online presence and competition. During the audit, we'll explain what improvements can have an immediate impact and what typically takes longer to build."
-                 data-ne="यो तपाईंको हालको अनलाइन उपस्थिति र प्रतिस्पर्धामा निर्भर गर्छ। अडिटको क्रममा, हामी तत्काल प्रभाव पार्ने सुधारहरू र लामो समय लाग्ने कुराहरू स्पष्ट गर्छौं।">
-                It depends on your current online presence and competition. During the audit, we'll explain what improvements can have an immediate impact and what typically takes longer to build.
-              </p>
-            </details>
-
-            <details class="group rounded-3xl border border-slate-200 bg-white p-8 lg:p-10 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-blue-200 open:bg-blue-50">
-              <summary class="cursor-pointer list-none flex justify-between items-center text-lg font-semibold">
-                <span data-en="What happens during the free audit?"
-                      data-ne="निःशुल्क अडिटमा के हुन्छ?">
-                  What happens during the free audit?
-                </span>
-                <span class="transition group-open:rotate-45 text-2xl">+</span>
-              </summary>
-              <p class="mt-6 text-slate-600 leading-8 max-w-3xl"
-                 data-en="We review your visibility, compare you with nearby competitors, identify missed opportunities, and recommend the highest-impact improvements."
-                 data-ne="हामी तपाईंको दृश्यता समीक्षा गर्छौं, नजिकका प्रतिस्पर्धीसँग तुलना गर्छौं, छुटेका अवसरहरू पहिचान गर्छौं र सबैभन्दा बढी प्रभाव पार्ने सुधारहरू सिफारिस गर्छौं।">
-                We review your visibility, compare you with nearby competitors, identify missed opportunities, and recommend the highest-impact improvements.
-              </p>
-            </details>
-
-          </div>
-        </section>
-
-        <!-- FOUNDER / CREDIBILITY SECTION -->
-        <section class="max-w-4xl mx-auto mb-20 reveal">
-          <div class="flex flex-col items-center bg-gradient-to-br from-slate-50 to-blue-50 border border-slate-200 rounded-3xl p-10 shadow-lg">
-            <div class="w-24 h-24 rounded-full bg-slate-200 flex items-center justify-center mb-6">
-              <span class="text-slate-400 text-3xl font-black">👤</span>
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-center mb-3">Built to Help Local Businesses Get Chosen First</h2>
-            <p class="text-center text-slate-700 max-w-xl mb-6">We're dedicated to helping local businesses become the obvious choice online—so you get found, trusted, and contacted before your competitors.</p>
-            <div class="flex flex-wrap justify-center gap-3 mt-2">
-              <span class="inline-flex items-center rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-700">Personal Audit</span>
-              <span class="inline-flex items-center rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-700">No Sales Pressure</span>
-              <span class="inline-flex items-center rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-700">Actionable Recommendations</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- 5. FINAL CTA -->
-        <section id="audit" class="pt-20 pb-16 lg:pt-24 lg:pb-20 border-t border-slate-200 reveal">
-<div class="max-w-6xl mx-auto">
-
-  <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 mb-5"
-     data-en="Final Step" data-ne="अन्तिम चरण">
-    Final Step
-  </p>
-
-  <div class="mb-6 flex flex-wrap gap-3">
-    <span class="rounded-full bg-green-50 border border-green-200 px-4 py-2 text-sm font-semibold text-green-700">✓ Free Audit</span>
-    <span class="rounded-full bg-blue-50 border border-blue-200 px-4 py-2 text-sm font-semibold text-blue-700">✓ Personalized Report</span>
-    <span class="rounded-full bg-purple-50 border border-purple-200 px-4 py-2 text-sm font-semibold text-purple-700">✓ No Obligation</span>
-  </div>
-
-  <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-14 items-start">
-
-    <div>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-[-0.04em] leading-[1.02] max-w-3xl"
-          data-en="Find out exactly why customers aren't choosing you."
-          data-ne="ग्राहकहरूले किन तपाईंलाई रोजिरहेका छैनन् भनेर ठ्याक्कै पत्ता लगाउनुहोस्।">
-        Find out exactly why customers aren't choosing you.
-      </h2>
-      <p class="mt-8 text-xl leading-9 text-slate-600 max-w-2xl"
-         data-en="In a free visibility audit, we'll walk through your business, identify what's costing you customers, and show you the highest-impact improvements."
-         data-ne="निःशुल्क दृश्यता अडिटमा, हामी तपाईंको व्यवसायको समीक्षा गर्छौं, ग्राहक गुमाउने कारणहरू पत्ता लगाउँछौं र सबैभन्दा बढी प्रभाव पार्ने सुधारहरू देखाउँछौं।">
-        In a free visibility audit, we'll walk through your business, identify what's costing you customers, and show you the highest-impact improvements.
-      </p>
-
-      <div class="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-        <button type="button" id="openAuditModal" class="group inline-flex items-center justify-center w-full sm:w-auto rounded-2xl border border-blue-700 bg-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-200/60 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-700 hover:border-blue-800 hover:shadow-xl active:translate-y-0" data-en="Book My Free Audit" data-ne="मेरो निःशुल्क अडिट बुक गर्नुहोस्">
-          Book My Free Audit
-        </button>
-        <span class="inline-flex items-center justify-center w-full sm:w-auto rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4 text-sm font-medium text-blue-700"
-              data-en="15 min • No obligation" data-ne="१५ मिनेट • कुनै बाध्यता छैन">
-          15 min • No obligation
-        </span>
-      </div>
-      <!-- CTA Trust Badges -->
-      <div class="flex flex-wrap gap-3 mt-6">
-        <span class="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-semibold text-blue-700">15 Minutes</span>
-        <span class="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-semibold text-blue-700">No Obligation</span>
-        <span class="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-semibold text-blue-700">Personalized Action Plan</span>
-      </div>
-    </div>
-
-    <div class="border-t pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8 border-slate-200 space-y-6">
-      <div class="transition-all duration-300 hover:translate-x-2">
-        <div class="text-xs uppercase tracking-[0.2em] text-blue-500"
-             data-en="01" data-ne="०१">01</div>
-        <p class="mt-2 font-semibold"
-           data-en="Visibility Audit" data-ne="दृश्यता अडिट">Visibility Audit</p>
-      </div>
-      <div class="transition-all duration-300 hover:translate-x-2">
-        <div class="text-xs uppercase tracking-[0.2em] text-blue-500"
-             data-en="02" data-ne="०२">02</div>
-        <p class="mt-2 font-semibold"
-           data-en="Competitor Comparison" data-ne="प्रतिस्पर्धी तुलना">Competitor Comparison</p>
-      </div>
-      <div class="transition-all duration-300 hover:translate-x-2">
-        <div class="text-xs uppercase tracking-[0.2em] text-blue-500"
-             data-en="03" data-ne="०३">03</div>
-        <p class="mt-2 font-semibold"
-           data-en="Personalized Action Plan" data-ne="व्यक्तिगत कार्य योजना">Personalized Action Plan</p>
-      </div>
-    </div>
-
-  </div>
-
-</div>
         </section>
     </main>
 
+    <!-- One persistent action: book a call. -->
+    <a href="#book-call"
+        class="fixed bottom-5 right-5 z-30 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-2xl transition hover:-translate-y-1 hover:bg-blue-700 sm:bottom-7 sm:right-7">Book
+        a call now →</a>
 
-</body>
-<!-- Booking Modal -->
-<div id="auditModal" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-5">
-  <div class="relative w-full max-w-2xl rounded-3xl bg-white p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
-    <button id="closeAuditModal" class="absolute right-5 top-5 text-3xl text-slate-400 hover:text-slate-700">&times;</button>
+<iframe
+    name="hidden_iframe"
+    style="display:none;"
+    onload="if(window.submitted){showSuccess();}">
+</iframe>
 
-    <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">Free Visibility Audit</p>
-    <h2 class="mt-2 text-3xl font-black">Let's learn about your business</h2>
-    <p class="mt-3 text-slate-600">Answer these quick questions. After you submit the form, we'll review your answers and call you to discuss your free visibility audit.</p>
-
-    <form class="mt-8 space-y-5" id="auditModalForm">
-      <input required minlength="2" maxlength="80" type="text" placeholder="Business Name" class="w-full rounded-2xl border border-slate-200 px-5 py-4 outline-none focus:border-blue-500">
-      <input required minlength="2" maxlength="80" type="text" placeholder="Owner Name" class="w-full rounded-2xl border border-slate-200 px-5 py-4 outline-none focus:border-blue-500">
-      <input required type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" minlength="10" placeholder="10-digit Phone Number" class="w-full rounded-2xl border border-slate-200 px-5 py-4 outline-none focus:border-blue-500">
-      <input required minlength="2" type="text" placeholder="Business Location" class="w-full rounded-2xl border border-slate-200 px-5 py-4 outline-none focus:border-blue-500">
-
-      <select class="w-full rounded-2xl border border-slate-200 px-5 py-4" required>
-        <option value="">What type of business do you own?</option>
-        <option>Healthcare / Clinic</option>
-        <option>Beauty & Wellness</option>
-        <option>Restaurant / Cafe</option>
-        <option>Gym / Fitness</option>
-        <option>Retail Store</option>
-        <option>Home Services</option>
-        <option>Professional Services</option>
-        <option value="other">Other</option>
-      </select>
-      <input id="otherBusiness" type="text" placeholder="Please specify your business" class="hidden w-full rounded-2xl border border-slate-200 px-5 py-4 outline-none focus:border-blue-500">
-
-      <select class="w-full rounded-2xl border border-slate-200 px-5 py-4" required>
-        <option value="">Are you willing to improve how your business attracts customers online?</option>
-        <option>Yes, absolutely</option>
-        <option>Maybe, I'd like to learn more</option>
-        <option>Not at the moment</option>
-      </select>
-
-      <textarea rows="4" placeholder="What's your biggest challenge in getting more customers or improving your online presence?" class="w-full rounded-2xl border border-slate-200 px-5 py-4 outline-none focus:border-blue-500"></textarea>
-
-      <div class="rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-700">
-        📞 Once you submit this form, we'll review your business and call you to schedule your free visibility audit.
-      </div>
-
-      <button type="submit" class="w-full rounded-2xl bg-blue-600 py-4 font-semibold text-white hover:bg-blue-700 transition">Submit Request</button>
-    </form>
-  </div>
-</div>
 <script>
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-    }
-  });
-},{threshold:0.15});
+const menuButton = document.querySelector("#menu-button");
+const menu = document.querySelector("#mobile-menu");
 
-// Visitor ID and Apps Script URL
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIZDsY0LPXr5pF9dpQTOACEZgtl4PchODJBHVO3DARM20BK19uT6IPG8XrXCXZutkTQQ/exec';
-
-let visitorId = localStorage.getItem('visitorId');
-if (!visitorId) {
-  visitorId = crypto.randomUUID();
-  localStorage.setItem('visitorId', visitorId);
-}
-
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-// Language Toggle
-let nepali=false;
-const toggle=document.getElementById('langToggle');
-
-function swapLanguage(){
-  document.querySelectorAll('[data-en]').forEach(el=>{
-    el.textContent = nepali ? el.dataset.en : el.dataset.ne;
-  });
-  document.getElementById('langLabel').textContent = nepali ? 'नेपाली' : 'English';
-  if (nepali) {
-    document.body.classList.remove('nepali');
-  } else {
-    document.body.classList.add('nepali');
-  }
-  nepali=!nepali;
-}
-
-toggle.addEventListener('click',swapLanguage);
-
-// Booking Modal JS
-const auditModal = document.getElementById('auditModal');
-const closeAuditModalBtn = document.getElementById('closeAuditModal');
-const openAuditModalBtns = document.querySelectorAll('#openAuditModal');
-const auditModalForm = document.getElementById('auditModalForm');
-
-const businessTypeSelect = auditModalForm.querySelector('select');
-const otherBusinessInput = document.getElementById('otherBusiness');
-
-businessTypeSelect.addEventListener('change', () => {
-  if (businessTypeSelect.value === 'other') {
-    otherBusinessInput.classList.remove('hidden');
-    otherBusinessInput.required = true;
-  } else {
-    otherBusinessInput.classList.add('hidden');
-    otherBusinessInput.required = false;
-    otherBusinessInput.value = '';
-  }
+menuButton.addEventListener("click", () => {
+    const open = menu.classList.toggle("hidden") === false;
+    menuButton.setAttribute("aria-expanded", open);
 });
 
-function openAuditModal() {
-  auditModal.classList.remove('hidden');
-  auditModal.classList.add('flex');
-  // prevent background scroll
-  document.body.style.overflow = 'hidden';
-}
-
-function closeAuditModal() {
-  auditModal.classList.remove('flex');
-  auditModal.classList.add('hidden');
-  document.body.style.overflow = '';
-}
-
-openAuditModalBtns.forEach(btn => {
-  btn.addEventListener('click', openAuditModal);
-});
-
-closeAuditModalBtn.addEventListener('click', closeAuditModal);
-
-// Close modal on backdrop click
-auditModal.addEventListener('click', function(e) {
-  if (e.target === auditModal) {
-    closeAuditModal();
-  }
-});
-
-// Handle form submission
-if (auditModalForm) {
-  auditModalForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const inputs = auditModalForm.querySelectorAll('input');
-    const selects = auditModalForm.querySelectorAll('select');
-    const textarea = auditModalForm.querySelector('textarea');
-
-    const phone = inputs[2].value.trim();
-
-    if (!/^\d{10}$/.test(phone)) {
-      alert('Please enter a valid 10-digit phone number.');
-      inputs[2].focus();
-      return;
-    }
-
-    if (!selects[0].value) {
-      alert('Please select your business type.');
-      selects[0].focus();
-      return;
-    }
-
-    if (selects[0].value === 'other' && !otherBusinessInput.value.trim()) {
-      alert('Please specify your business type.');
-      otherBusinessInput.focus();
-      return;
-    }
-
-    if (!selects[1].value) {
-      alert('Please answer whether you are willing to improve your online presence.');
-      selects[1].focus();
-      return;
-    }
-
-    const payload = {
-      type: 'lead',
-      businessName: inputs[0].value.trim(),
-      ownerName: inputs[1].value.trim(),
-      phone,
-      location: inputs[3].value.trim(),
-      businessType: selects[0].value === 'other' ? otherBusinessInput.value.trim() : selects[0].value,
-      interested: selects[1].value,
-      challenge: textarea.value.trim()
-    };
-
-    const submitBtn = auditModalForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
-
-    try {
-      const response = await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) throw new Error('Submission failed');
-
-      auditModalForm.innerHTML = `
-        <div class="py-10 text-center">
-          <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h3 class="text-3xl font-black text-slate-900">Request Submitted!</h3>
-          <p class="mt-4 text-lg leading-8 text-slate-600">
-            Thank you for requesting your <strong>Free Visibility Audit</strong>.<br>
-            We've received your details successfully and will review your business before giving you a call.
-          </p>
-          <div class="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-blue-700">
-            📞 Expect a call from us soon to discuss your audit and answer any questions.
-          </div>
-        </div>
-      `;
-
-      setTimeout(() => {
-        closeAuditModal();
-        location.reload();
-      }, 3500);
-
-    } catch (err) {
-      alert('Something went wrong. Please try again.');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-    }
-  });
-}
-</script>
-<script>
-// Visit tracking
-window.addEventListener('load', async () => {
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        type: 'visit',
-        visitorId,
-        page: window.location.pathname,
-        referrer: document.referrer || 'Direct',
-        device: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
-        language: navigator.language,
-        browser: navigator.userAgent,
-        screen: `${window.screen.width}x${window.screen.height}`
-      })
+menu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        menu.classList.add("hidden");
+        menuButton.setAttribute("aria-expanded", false);
     });
-  } catch (err) {
-    console.error('Visit tracking failed:', err);
-  }
 });
+
+window.submitted = false;
+
+const form = document.getElementById("enquiry-form");
+
+form.addEventListener("submit", () => {
+    window.submitted = true;
+
+    const btn = form.querySelector("button");
+
+    btn.disabled = true;
+    btn.innerText = "Sending...";
+});
+
+function showSuccess() {
+
+    document.getElementById("form-fields").classList.add("hidden");
+    document.getElementById("form-success").classList.remove("hidden");
+
+    form.reset();
+}
 </script>
-</html> 
+</body>
+
+</html>

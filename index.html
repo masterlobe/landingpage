@@ -336,6 +336,11 @@ form.addEventListener("submit", () => {
 
 function showSuccess() {
 
+    if (typeof fbq === "function") {
+        fbq('track', 'Lead');
+        console.log("Lead event sent");
+    }
+
     document.getElementById("form-fields").classList.add("hidden");
     document.getElementById("form-success").classList.remove("hidden");
 

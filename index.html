@@ -351,9 +351,24 @@
               class="grid gap-1.5 text-sm font-semibold text-slate-700">Clinic name<input required name="clinic"
                 placeholder="Sharma Dental Care"
                 class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
-              class="grid gap-1.5 text-sm font-semibold text-slate-700">Phone number<input required name="phone"
-                type="tel" inputmode="tel" autocomplete="tel" placeholder="98765 43210"
-                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
+              class="grid gap-1.5 text-sm font-semibold text-slate-700">Phone number<label class="grid gap-1.5 text-sm font-semibold text-slate-700">
+
+
+  <input
+    required
+    name="phone"
+    type="tel"
+    inputmode="numeric"
+    autocomplete="tel"
+    placeholder="9876543210"
+    minlength="10"
+    maxlength="10"
+    pattern="[6-9][0-9]{9}"
+    title="Enter a valid 10-digit Indian mobile number"
+    class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+  >
+
+</label></label><label
               class="grid gap-1.5 text-sm font-semibold text-slate-700">City<input required name="city"
                 placeholder="Mumbai"
                 class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label

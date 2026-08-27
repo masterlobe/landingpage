@@ -39,7 +39,7 @@
     !function (f, b, e, v, n, t, s) {
       if (f.fbq) return; n = f.fbq = function () {
         n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
       };
       if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
       n.queue = []; t = b.createElement(e); t.async = !0;
@@ -157,9 +157,9 @@
               </p>
 
               <span
-                class="mt-2 inline-block rounded-full bg-blue-600 px-2 py-1 text-[6px] font-bold text-white sm:mt-3 sm:px-2 sm:py-1.5 sm:text-[7px]">
-                Book now
-              </span>
+  class="hidden sm:inline-block mt-3 rounded-full bg-blue-600 px-2 py-1.5 text-[7px] font-bold text-white">
+  Book now
+</span>
 
             </div>
           </div>
@@ -351,26 +351,17 @@
               class="grid gap-1.5 text-sm font-semibold text-slate-700">Clinic name<input required name="clinic"
                 placeholder="Sharma Dental Care"
                 class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
-              class="grid gap-1.5 text-sm font-semibold text-slate-700">Phone number<label class="grid gap-1.5 text-sm font-semibold text-slate-700">
+              class="grid gap-1.5 text-sm font-semibold text-slate-700">Phone number<label
+                class="grid gap-1.5 text-sm font-semibold text-slate-700">
 
 
-  <input
-    required
-    name="phone"
-    type="tel"
-    inputmode="numeric"
-    autocomplete="tel"
-    placeholder="9876543210"
-    minlength="10"
-    maxlength="10"
-    pattern="[6-9][0-9]{9}"
-    title="Enter a valid 10-digit Indian mobile number"
-    class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-  >
+                <input required name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="9876543210"
+                  minlength="10" maxlength="10" pattern="[6-9][0-9]{9}"
+                  title="Enter a valid 10-digit Indian mobile number"
+                  class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
 
-</label></label><label
-              class="grid gap-1.5 text-sm font-semibold text-slate-700">City<input required name="city"
-                placeholder="Mumbai"
+              </label></label><label class="grid gap-1.5 text-sm font-semibold text-slate-700">City<input required
+                name="city" placeholder="Mumbai"
                 class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
               class="grid gap-1.5 text-sm font-semibold text-slate-700 sm:col-span-2">I’m interested
               in<select name="interestedIn"

@@ -394,56 +394,132 @@
   <a href="#book-call"
     class="fixed bottom-5 right-5 z-30 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-2xl transition hover:-translate-y-1 hover:bg-blue-700 sm:bottom-7 sm:right-7">Is
     a website worth it? →</a>
+<!-- Hidden iframe used for form submission -->
 <iframe
-    name="hidden_iframe"
-    style="display:none;"
-    onload="if(window.submitted){showSuccess();}">
+  name="hidden_iframe"
+  style="display:none;"
+  onload="if (window.submitted) showSuccess();">
 </iframe>
 
 <script>
-const menuButton = document.querySelector("#menu-button");
-const menu = document.querySelector("#mobile-menu");
+  /* =========================
+     MOBILE MENU
+     ========================= */
 
-menuButton.addEventListener("click", () => {
+  const menuButton = document.querySelector("#menu-button");
+  const menu = document.querySelector("#mobile-menu");
+
+  menuButton.addEventListener("click", () => {
     const open = menu.classList.toggle("hidden") === false;
     menuButton.setAttribute("aria-expanded", open);
-});
+  });
 
-menu.querySelectorAll("a").forEach(link => {
+  menu.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
-        menu.classList.add("hidden");
-        menuButton.setAttribute("aria-expanded", false);
+      menu.classList.add("hidden");
+      menuButton.setAttribute("aria-expanded", false);
     });
-});
+  });
 
-window.submitted = false;
-window.leadTracked = false;
 
-const form = document.getElementById("enquiry-form");
+  /* =========================
+     LEAD TRACKING
+     ========================= */
 
-form.addEventListener("submit", () => {
+  const form = document.getElementById("enquiry-form");
+
+  window.submitted = false;
+
+  const LEAD_STORAGE_KEY = "fss_lead_submitted";
+
+
+  // Check whether this browser has already
+  // successfully submitted a lead.
+  function leadAlreadySubmitted() {
+    return localStorage.getItem(LEAD_STORAGE_KEY) === "true";
+  }
+
+
+  // Mark this browser as having submitted
+  // a lead.
+  function markLeadSubmitted() {
+    localStorage.setItem(LEAD_STORAGE_KEY, "true");
+  }
+
+
+  // Track Meta Lead ONLY once.
+  function trackLeadOnce() {
+
+    // ALWAYS CHECK BEFORE TRACKING
+    if (leadAlreadySubmitted()) {
+      console.log("Lead already submitted. Meta Lead blocked.");
+      return;
+    }
+
+    // Make sure Meta Pixel is loaded
+    if (typeof fbq !== "function") {
+      console.error("Meta Pixel is not available.");
+      return;
+    }
+
+    // Send ONE Lead event
+    fbq("track", "Lead");
+
+    // Remember that this browser has submitted
+    markLeadSubmitted();
+
+    console.log("Meta Lead tracked.");
+  }
+
+
+  /* =========================
+     FORM SUBMISSION
+     ========================= */
+
+  form.addEventListener("submit", () => {
+
+    // Tell iframe onload that a submission
+    // is currently happening.
     window.submitted = true;
 
     const btn = form.querySelector("button");
 
     btn.disabled = true;
     btn.innerText = "Sending...";
-});
+  });
 
-function showSuccess() {
 
-    // Only send ONE Lead event for this submission
-    if (!window.leadTracked && typeof fbq === "function") {
-        fbq('track', 'Lead');
-        window.leadTracked = true;
-        console.log("Lead event sent");
-    }
+  /* =========================
+     SUCCESS
+     ========================= */
 
+  function showSuccess() {
+
+    /*
+     * The iframe has loaded after the form
+     * submission.
+     *
+     * Check localStorage before sending Lead.
+     */
+    trackLeadOnce();
+
+
+    // Hide form
     document.getElementById("form-fields").classList.add("hidden");
+
+    // Show success message
     document.getElementById("form-success").classList.remove("hidden");
 
+    // Reset fields
     form.reset();
-}
+
+    /*
+     * IMPORTANT:
+     * Prevent another iframe onload from
+     * being interpreted as another submission.
+     */
+    window.submitted = false;
+  }
 </script>
 </body>
 

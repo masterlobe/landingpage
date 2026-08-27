@@ -49,7 +49,6 @@
       'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '4499302773673700');
     fbq('track', 'PageView');
-    fbq('track', 'ViewContent');
   </script>
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=4499302773673700&ev=PageView&noscript=1" /></noscript>
@@ -391,9 +390,11 @@
       </div>
     </section>
   </main><!-- One persistent action: book a call. -->
+
   <a href="#book-call"
     class="fixed bottom-5 right-5 z-30 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-2xl transition hover:-translate-y-1 hover:bg-blue-700 sm:bottom-7 sm:right-7">Is
     a website worth it? →</a>
+    
 <!-- Hidden iframe used for form submission -->
 <iframe
   name="hidden_iframe"
@@ -402,124 +403,274 @@
 </iframe>
 
 <script>
-  /* =========================
-     MOBILE MENU
-     ========================= */
+/* =========================================================
+   FULL STACK SOLUTION — FUNNEL TRACKING
+   =========================================================
 
-  const menuButton = document.querySelector("#menu-button");
-  const menu = document.querySelector("#mobile-menu");
+   Standard event:
+   - PageView
+   - Lead
 
-  menuButton.addEventListener("click", () => {
-    const open = menu.classList.toggle("hidden") === false;
-    menuButton.setAttribute("aria-expanded", open);
-  });
+   Custom events:
+   - ViewOffer
+   - ViewProcess
+   - ViewFAQ
+   - ViewForm
+   - ClickCTA
 
-  menu.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      menu.classList.add("hidden");
-      menuButton.setAttribute("aria-expanded", false);
+   Section events fire once per page visit.
+   Lead fires once per browser.
+   ========================================================= */
+
+
+(function () {
+
+  /* =======================================================
+     CONFIG
+     ======================================================= */
+
+  const LEAD_STORAGE_KEY = "fss_lead_submitted";
+
+
+  /* =======================================================
+     SAFE META EVENT FUNCTION
+     ======================================================= */
+
+  function trackCustomEvent(eventName) {
+
+    if (typeof fbq !== "function") {
+      console.error("Meta Pixel not available:", eventName);
+      return;
+    }
+
+    fbq("trackCustom", eventName);
+
+    console.log("Meta event:", eventName);
+  }
+
+
+  /* =======================================================
+     TRACK EACH SECTION ONLY ONCE
+     ======================================================= */
+
+  const trackedSections = new Set();
+
+
+  function trackSection(sectionId, eventName) {
+
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      console.warn("Section not found:", sectionId);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      function (entries, observer) {
+
+        entries.forEach(function (entry) {
+
+          if (
+            entry.isIntersecting &&
+            !trackedSections.has(eventName)
+          ) {
+
+            trackedSections.add(eventName);
+
+            trackCustomEvent(eventName);
+
+            // Stop observing after first successful trigger
+            observer.unobserve(section);
+          }
+
+        });
+
+      },
+      {
+        // 50% of section must be visible
+        threshold: 0.5
+      }
+    );
+
+    observer.observe(section);
+  }
+
+
+  /* =======================================================
+     FUNNEL SECTION EVENTS
+     ======================================================= */
+
+  // Visitor reaches the pricing/offer section
+  trackSection("packages", "ViewOffer");
+
+  // Visitor reaches How It Works
+  trackSection("process", "ViewProcess");
+
+  // Visitor reaches FAQ
+  trackSection("faq", "ViewFAQ");
+
+  // Visitor reaches enquiry form
+  trackSection("book-call", "ViewForm");
+
+
+  /* =======================================================
+     CTA CLICK TRACKING
+     ======================================================= */
+
+  const ctaLinks = document.querySelectorAll(
+    'a[href="#book-call"]'
+  );
+
+  ctaLinks.forEach(function (cta) {
+
+    cta.addEventListener("click", function () {
+
+      trackCustomEvent("ClickCTA");
+
     });
+
   });
 
 
-  /* =========================
+  /* =======================================================
      LEAD TRACKING
-     ========================= */
+     ======================================================= */
 
   const form = document.getElementById("enquiry-form");
 
   window.submitted = false;
 
-  const LEAD_STORAGE_KEY = "fss_lead_submitted";
 
-
-  // Check whether this browser has already
-  // successfully submitted a lead.
   function leadAlreadySubmitted() {
-    return localStorage.getItem(LEAD_STORAGE_KEY) === "true";
+
+    return localStorage.getItem(
+      LEAD_STORAGE_KEY
+    ) === "true";
+
   }
 
 
-  // Mark this browser as having submitted
-  // a lead.
   function markLeadSubmitted() {
-    localStorage.setItem(LEAD_STORAGE_KEY, "true");
+
+    localStorage.setItem(
+      LEAD_STORAGE_KEY,
+      "true"
+    );
+
   }
 
 
-  // Track Meta Lead ONLY once.
   function trackLeadOnce() {
 
-    // ALWAYS CHECK BEFORE TRACKING
+    // CHECK FIRST
     if (leadAlreadySubmitted()) {
-      console.log("Lead already submitted. Meta Lead blocked.");
+
+      console.log(
+        "Lead already submitted. Lead event blocked."
+      );
+
       return;
+
     }
 
-    // Make sure Meta Pixel is loaded
+
     if (typeof fbq !== "function") {
-      console.error("Meta Pixel is not available.");
+
+      console.error(
+        "Meta Pixel not available. Lead not tracked."
+      );
+
       return;
+
     }
 
-    // Send ONE Lead event
+
+    // Send standard Meta Lead event
     fbq("track", "Lead");
 
-    // Remember that this browser has submitted
+
+    // Remember this browser has submitted
     markLeadSubmitted();
 
-    console.log("Meta Lead tracked.");
+
+    console.log("Meta Lead tracked successfully.");
+
   }
 
 
-  /* =========================
+  /* =======================================================
      FORM SUBMISSION
-     ========================= */
+     ======================================================= */
 
-  form.addEventListener("submit", () => {
+  if (form) {
 
-    // Tell iframe onload that a submission
-    // is currently happening.
-    window.submitted = true;
+    form.addEventListener("submit", function () {
 
-    const btn = form.querySelector("button");
+      window.submitted = true;
 
-    btn.disabled = true;
-    btn.innerText = "Sending...";
-  });
+      const button = form.querySelector("button");
+
+      if (button) {
+
+        button.disabled = true;
+
+        button.innerText = "Sending...";
+
+      }
+
+    });
+
+  }
 
 
-  /* =========================
-     SUCCESS
-     ========================= */
+  /* =======================================================
+     FORM SUCCESS
+     ======================================================= */
 
-  function showSuccess() {
+  window.showSuccess = function () {
 
-    /*
-     * The iframe has loaded after the form
-     * submission.
-     *
-     * Check localStorage before sending Lead.
-     */
+    // Track Lead exactly once
     trackLeadOnce();
 
 
     // Hide form
-    document.getElementById("form-fields").classList.add("hidden");
+    const formFields =
+      document.getElementById("form-fields");
+
+    if (formFields) {
+
+      formFields.classList.add("hidden");
+
+    }
+
 
     // Show success message
-    document.getElementById("form-success").classList.remove("hidden");
+    const success =
+      document.getElementById("form-success");
 
-    // Reset fields
-    form.reset();
+    if (success) {
 
-    /*
-     * IMPORTANT:
-     * Prevent another iframe onload from
-     * being interpreted as another submission.
-     */
+      success.classList.remove("hidden");
+
+    }
+
+
+    // Reset form
+    if (form) {
+
+      form.reset();
+
+    }
+
+
+    // Prevent iframe reloads from
+    // triggering another submission
     window.submitted = false;
-  }
+
+  };
+
+
+})();
 </script>
 </body>
 

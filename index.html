@@ -2,22 +2,65 @@
 <html lang="en" class="scroll-smooth">
 
 <head>
-  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-    content="Find out whether a website is right for your dental clinic, without a large upfront commitment.">
+
+  <meta
+    name="description"
+    content="Find out whether a website is right for your dental clinic, without a large upfront commitment."
+  >
+
   <title>Full Stack Solution | Is a Website Right for Your Clinic?</title>
+
+  <!-- =========================================================
+       TAILWIND
+       ========================================================= -->
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <script>
-    tailwind.config = { theme: { extend: { colors: { brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' } }, boxShadow: { soft: '0 22px 60px -18px rgba(30, 64, 175, .16)' } } } };
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              900: '#1e3a8a'
+            }
+          },
+
+          boxShadow: {
+            soft: '0 22px 60px -18px rgba(30, 64, 175, .16)'
+          }
+        }
+      }
+    };
   </script>
+
+
+  <!-- =========================================================
+       FONTS
+       ========================================================= -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
-    rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- =========================================================
+       STYLES
+       ========================================================= -->
+
   <style>
+
     body {
       font-family: 'DM Sans', system-ui, sans-serif;
     }
@@ -31,117 +74,505 @@
     summary::-webkit-details-marker {
       display: none;
     }
+
   </style>
 
 
-  <!-- Meta Pixel Code -->
-  <script>
-    !function (f, b, e, v, n, t, s) {
-      if (f.fbq) return; n = f.fbq = function () {
-        n.callMethod ?
-          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-      };
-      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-      n.queue = []; t = b.createElement(e); t.async = !0;
-      t.src = v; s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s)
-    }(window, document, 'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '4499302773673700');
-    fbq('track', 'PageView');
+  <!-- =========================================================
+       EMAILJS
+       ========================================================= -->
+
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=4499302773673700&ev=PageView&noscript=1" /></noscript>
-  <!-- End Meta Pixel Code -->
+
+
+  <!-- =========================================================
+       META PIXEL
+       ========================================================= -->
+
+  <script>
+
+    !function(f,b,e,v,n,t,s)
+    {
+      if(f.fbq)return;
+
+      n=f.fbq=function(){
+        n.callMethod ?
+        n.callMethod.apply(n,arguments) :
+        n.queue.push(arguments)
+      };
+
+      if(!f._fbq)f._fbq=n;
+
+      n.push=n;
+      n.loaded=!0;
+      n.version='2.0';
+      n.queue=[];
+
+      t=b.createElement(e);
+      t.async=!0;
+      t.src=v;
+
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s);
+
+    }(
+      window,
+      document,
+      'script',
+      'https://connect.facebook.net/en_US/fbevents.js'
+    );
+
+
+    /* Initialize Meta Pixel */
+
+    fbq('init', '4499302773673700');
+
+
+    /* =========================================================
+       TRACK EVENT ONLY ONCE
+       ========================================================= */
+
+    function trackOnce(eventName, eventData = {}) {
+
+      const storageKey = "fss_event_" + eventName;
+
+
+      /*
+       * Has this event already been tracked
+       * in this browser?
+       */
+
+      if (localStorage.getItem(storageKey) === "true") {
+
+        console.log(
+          "[Meta] " + eventName + " already tracked."
+        );
+
+        return false;
+      }
+
+
+      /*
+       * Make sure Meta Pixel exists.
+       */
+
+      if (typeof fbq !== "function") {
+
+        console.error(
+          "[Meta] fbq is not available."
+        );
+
+        return false;
+      }
+
+
+      /*
+       * Standard Meta events
+       */
+
+      const standardEvents = [
+        "ViewContent",
+        "Lead",
+        "Purchase"
+      ];
+
+
+      if (standardEvents.includes(eventName)) {
+
+        fbq(
+          "track",
+          eventName,
+          eventData
+        );
+
+      }
+
+      /*
+       * Custom events
+       */
+
+      else {
+
+        fbq(
+          "trackCustom",
+          eventName,
+          eventData
+        );
+
+      }
+
+
+      /*
+       * Store AFTER sending the event.
+       */
+
+      localStorage.setItem(
+        storageKey,
+        "true"
+      );
+
+
+      console.log(
+        "[Meta] " + eventName + " tracked."
+      );
+
+
+      return true;
+    }
+
+
+    /* =========================================================
+       PAGE VIEW
+       ========================================================= */
+
+    /*
+     * PageView should NOT be stored in localStorage.
+     *
+     * Every genuine page load should be allowed
+     * to generate a PageView.
+     */
+
+    fbq(
+      "track",
+      "PageView"
+    );
+
+
+    /* =========================================================
+       VIEW CONTENT
+       ========================================================= */
+
+    /*
+     * Main content viewed once per browser.
+     */
+
+    trackOnce(
+      "ViewContent"
+    );
+
+
+    /* =========================================================
+       EMAILJS INITIALIZATION
+       ========================================================= */
+
+    window.addEventListener("load", function () {
+
+      if (typeof emailjs !== "undefined") {
+
+        emailjs.init({
+          publicKey: "EPFCgNG8UcJKjujBj"
+        });
+
+        console.log(
+          "[EmailJS] Initialized."
+        );
+
+      }
+
+    });
+
+  </script>
+
+
+  <!-- =========================================================
+       NOSCRIPT META PIXEL
+       ========================================================= -->
+
+  <noscript>
+
+    <img
+      height="1"
+      width="1"
+      style="display:none"
+      src="https://www.facebook.com/tr?id=4499302773673700&ev=PageView&noscript=1"
+    >
+
+  </noscript>
+
 </head>
 
+
 <body class="overflow-x-hidden bg-white text-slate-800">
-  <!--
-    SETUP: Replace FORM_WEBHOOK_URL_HERE below with your Power Automate HTTP webhook URL.
-    In Power Automate, create: When an HTTP request is received → Add a row into an Excel table.
-    A regular Excel share link cannot directly accept form data, so the webhook is required.
-  -->
+
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+
   <header class="sticky top-0 z-40 border-b border-slate-100 bg-white/90 backdrop-blur-xl">
+
     <div class="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-7">
-      <a href="#top" class="flex items-center gap-3" aria-label="Full Stack Solution home"><img src="./logo.png"
-          alt="Full Stack Solution" class="h-10 w-10 rounded-xl object-contain"> <span class="leading-tight"><strong
-            class="block font-bold tracking-tight text-slate-900">Full Stack Solution</strong><small
-            class="block text-[9px] font-bold uppercase tracking-[.15em] text-blue-700">Dental
-            websites</small></span></a>
-      <nav class="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex"
-        aria-label="Primary navigation">
-        <a class="transition hover:text-blue-700" href="#packages">Packages</a> <a
-          class="transition hover:text-blue-700" href="#process">How it works</a> <a
-          class="transition hover:text-blue-700" href="#faq">FAQ</a>
-      </nav><a href="#book-call"
-        class="hidden rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 md:inline-flex">Find
-        out if it fits</a> <button id="menu-button"
+
+      <a
+        href="#top"
+        class="flex items-center gap-3"
+        aria-label="Full Stack Solution home"
+      >
+
+        <img
+          src="./logo.png"
+          alt="Full Stack Solution"
+          class="h-10 w-10 rounded-xl object-contain"
+        >
+
+        <span class="leading-tight">
+
+          <strong class="block font-bold tracking-tight text-slate-900">
+            Full Stack Solution
+          </strong>
+
+          <small class="block text-[9px] font-bold uppercase tracking-[.15em] text-blue-700">
+            Dental websites
+          </small>
+
+        </span>
+
+      </a>
+
+
+      <nav
+        class="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex"
+        aria-label="Primary navigation"
+      >
+
+        <a
+          class="transition hover:text-blue-700"
+          href="#packages"
+        >
+          Packages
+        </a>
+
+        <a
+          class="transition hover:text-blue-700"
+          href="#process"
+        >
+          How it works
+        </a>
+
+        <a
+          class="transition hover:text-blue-700"
+          href="#faq"
+        >
+          FAQ
+        </a>
+
+      </nav>
+
+
+      <a
+        href="#book-call"
+        class="hidden rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 md:inline-flex"
+      >
+        Find out if it fits
+      </a>
+
+
+      <button
+        id="menu-button"
         class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 text-slate-700 md:hidden"
-        aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu"><span class="text-xl">☰</span></button>
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Open menu"
+      >
+        <span class="text-xl">☰</span>
+      </button>
+
     </div>
-    <nav id="mobile-menu" class="hidden border-t border-slate-100 bg-white px-5 py-4 md:hidden"
-      aria-label="Mobile navigation">
+
+
+    <!-- MOBILE MENU -->
+
+    <nav
+      id="mobile-menu"
+      class="hidden border-t border-slate-100 bg-white px-5 py-4 md:hidden"
+      aria-label="Mobile navigation"
+    >
+
       <div class="grid gap-1 text-sm font-semibold text-slate-700">
-        <a class="rounded-lg px-3 py-3 hover:bg-blue-50" href="#packages">Packages</a> <a
-          class="rounded-lg px-3 py-3 hover:bg-blue-50" href="#process">How it works</a> <a
-          class="rounded-lg px-3 py-3 hover:bg-blue-50" href="#faq">FAQ</a> <a
-          class="mt-2 rounded-xl bg-blue-600 px-4 py-3 text-center text-white" href="#book-call">Find out if it fits</a>
+
+        <a
+          class="rounded-lg px-3 py-3 hover:bg-blue-50"
+          href="#packages"
+        >
+          Packages
+        </a>
+
+        <a
+          class="rounded-lg px-3 py-3 hover:bg-blue-50"
+          href="#process"
+        >
+          How it works
+        </a>
+
+        <a
+          class="rounded-lg px-3 py-3 hover:bg-blue-50"
+          href="#faq"
+        >
+          FAQ
+        </a>
+
+        <a
+          class="mt-2 rounded-xl bg-blue-600 px-4 py-3 text-center text-white"
+          href="#book-call"
+        >
+          Find out if it fits
+        </a>
+
       </div>
+
     </nav>
+
   </header>
+
+
+  <!-- =========================================================
+       MAIN
+       ========================================================= -->
+
   <main id="top">
+
+
+    <!-- =======================================================
+         HERO
+         ======================================================= -->
+
     <section
-      class="relative overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white pb-20 pt-16 sm:pb-28 sm:pt-24">
+      class="relative overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white pb-20 pt-16 sm:pb-28 sm:pt-24"
+    >
+
       <div class="absolute -right-40 -top-52 h-[520px] w-[520px] rounded-full bg-blue-200/40 blur-3xl"></div>
+
+
       <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-7 lg:grid-cols-2">
+
+
         <div class="text-center lg:text-left">
+
           <span
-            class="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-3 py-1.5 text-xs font-bold text-blue-800 shadow-sm">Not
-            sure if a website is right for your clinic?</span>
+            class="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-3 py-1.5 text-xs font-bold text-blue-800 shadow-sm"
+          >
+            Not sure if a website is right for your clinic?
+          </span>
+
+
           <h1
-            class="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-            Find out without a <span class="text-blue-600">big website investment.</span></h1>
-          <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-600 lg:mx-0">Most clinics do not know
-            whether a website will help them. Start with a professional ₹3,000 website, see how it works for your
-            clinic, and upgrade only if it makes sense.</p>
+            class="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl"
+          >
+
+            Find out without a
+            <span class="text-blue-600">
+              big website investment.
+            </span>
+
+          </h1>
+
+
+          <p
+            class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-600 lg:mx-0"
+          >
+            Most clinics do not know whether a website will help them.
+            Start with a professional ₹3,000 website, see how it works
+            for your clinic, and upgrade only if it makes sense.
+          </p>
+
+
           <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
-            <a href="#book-call"
-              class="rounded-xl bg-blue-600 px-7 py-4 text-center font-bold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700">See
-              if a website is right for you →</a>
+
+            <a
+              href="#book-call"
+              class="rounded-xl bg-blue-600 px-7 py-4 text-center font-bold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700"
+            >
+              See if a website is right for you →
+            </a>
+
           </div>
-          <p class="mt-4 text-sm font-medium text-slate-500">No sales pressure. We’ll help you decide whether a website
-            actually makes sense for your clinic.</p>
+
+
+          <p class="mt-4 text-sm font-medium text-slate-500">
+            No sales pressure. We’ll help you decide whether a website
+            actually makes sense for your clinic.
+          </p>
+
         </div>
+
+
+        <!-- HERO VISUAL -->
+
         <div class="relative mx-auto min-h-[320px] w-full max-w-xl sm:min-h-[420px]">
+
           <div
-            class="absolute left-0 right-5 top-0 overflow-hidden rounded-2xl border-[6px] border-white bg-white shadow-soft sm:left-5 sm:right-8">
+            class="absolute left-0 right-5 top-0 overflow-hidden rounded-2xl border-[6px] border-white bg-white shadow-soft sm:left-5 sm:right-8"
+          >
+
             <div class="flex h-9 items-center gap-1.5 bg-slate-100 px-3"></div>
+
             <div
-              class="relative h-[245px] overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-100 p-6 sm:h-[315px] sm:p-9">
+              class="relative h-[245px] overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-100 p-6 sm:h-[315px] sm:p-9"
+            >
+
               <div class="flex justify-between text-[9px] font-bold text-slate-600 sm:text-[10px]">
-                <span class="flex items-center gap-2"><b
-                    class="grid h-6 w-6 place-items-center rounded-lg bg-blue-600 text-white">+</b> BrightSmile
-                  Dental</span><span class="hidden gap-3 sm:flex"><i>Home</i><i>Services</i><i>Doctors</i></span>
+
+                <span class="flex items-center gap-2">
+
+                  <b class="grid h-6 w-6 place-items-center rounded-lg bg-blue-600 text-white">
+                    +
+                  </b>
+
+                  BrightSmile Dental
+
+                </span>
+
+                <span class="hidden gap-3 sm:flex">
+
+                  <i>Home</i>
+                  <i>Services</i>
+                  <i>Doctors</i>
+
+                </span>
+
               </div>
+
+
               <div class="mt-10 max-w-[300px] sm:mt-14">
-                <p class="text-[9px] font-extrabold uppercase tracking-widest text-blue-600">Modern dental care</p>
-                <h2 class="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl">A more
-                  confident smile starts here.</h2>
-                <p class="mt-3 text-[10px] text-slate-500 sm:text-xs">Comfort-first, modern dentistry for your whole
-                  family.</p><span
-                  class="mt-4 inline-block rounded-full bg-blue-600 px-4 py-2 text-[9px] font-bold text-white">Book an
-                  appointment</span>
+
+                <p class="text-[9px] font-extrabold uppercase tracking-widest text-blue-600">
+                  Modern dental care
+                </p>
+
+                <h2 class="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl">
+                  A more confident smile starts here.
+                </h2>
+
+                <p class="mt-3 text-[10px] text-slate-500 sm:text-xs">
+                  Comfort-first, modern dentistry for your whole family.
+                </p>
+
+                <span class="mt-4 inline-block rounded-full bg-blue-600 px-4 py-2 text-[9px] font-bold text-white">
+                  Book an appointment
+                </span>
+
               </div>
+
+
               <div class="absolute -right-12 bottom-0 h-52 w-52 rounded-full bg-blue-200/40 blur-2xl"></div>
+
             </div>
+
           </div>
+
+
           <div
-            class="absolute bottom-0 right-6 w-24 rotate-[5deg] rounded-[22px] border-[5px] border-slate-900 bg-slate-900 p-1.5 shadow-2xl sm:right-0 sm:w-36 sm:rounded-[25px]">
+            class="absolute bottom-0 right-6 w-24 rotate-[5deg] rounded-[22px] border-[5px] border-slate-900 bg-slate-900 p-1.5 shadow-2xl sm:right-0 sm:w-36 sm:rounded-[25px]"
+          >
 
             <div class="mx-auto mb-1 h-1.5 w-9 rounded-full bg-slate-600 sm:w-11"></div>
 
             <div
-              class="h-40 rounded-[13px] bg-gradient-to-br from-blue-50 to-white p-2.5 sm:h-56 sm:rounded-[15px] sm:p-3">
+              class="h-40 rounded-[13px] bg-gradient-to-br from-blue-50 to-white p-2.5 sm:h-56 sm:rounded-[15px] sm:p-3"
+            >
 
               <p class="text-[7px] font-extrabold text-blue-700 sm:text-[8px]">
                 BrightSmile
@@ -155,523 +586,1168 @@
                 Modern dentistry. Thoughtful care.
               </p>
 
-              <span
-  class="hidden sm:inline-block mt-3 rounded-full bg-blue-600 px-2 py-1.5 text-[7px] font-bold text-white">
-  Book now
-</span>
+              <span class="hidden sm:inline-block mt-3 rounded-full bg-blue-600 px-2 py-1.5 text-[7px] font-bold text-white">
+                Book now
+              </span>
 
             </div>
+
           </div>
+
+
           <div
-            class="absolute bottom-1 right-20 rounded-xl border border-blue-100 bg-white px-3 py-2 text-[10px] font-bold text-blue-700 shadow-lg sm:right-28 sm:text-xs">
+            class="absolute bottom-1 right-20 rounded-xl border border-blue-100 bg-white px-3 py-2 text-[10px] font-bold text-blue-700 shadow-lg sm:right-28 sm:text-xs"
+          >
             ✓ Desktop + mobile ready
           </div>
+
         </div>
+
       </div>
+
     </section>
-    <section id="packages" class="scroll-mt-24 py-20 sm:py-28">
+
+
+    <!-- =======================================================
+         PACKAGES
+         ViewOffer
+         ======================================================= -->
+
+    <section
+      id="packages"
+      class="scroll-mt-24 py-20 sm:py-28"
+    >
+
       <div class="mx-auto max-w-7xl px-5 sm:px-7">
+
         <div class="mx-auto max-w-2xl text-center">
-          <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">Start small. Decide with confidence.</p>
-          <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">A low-risk way to see what
-            works for your clinic.</h2>
-          <p class="mt-4 text-slate-600">There is no need to commit ₹15,000+ before you know whether a website will be
-            useful. Begin with the smallest practical step, then grow only when it feels right.</p>
+
+          <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">
+            Start small. Decide with confidence.
+          </p>
+
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+            A low-risk way to see what works for your clinic.
+          </h2>
+
+          <p class="mt-4 text-slate-600">
+            There is no need to commit ₹15,000+ before you know whether
+            a website will be useful. Begin with the smallest practical
+            step, then grow only when it feels right.
+          </p>
+
         </div>
+
+
         <div class="mt-12 grid gap-5 lg:grid-cols-3">
+
+
+          <!-- PACKAGE 1 -->
+
           <article class="relative flex flex-col rounded-3xl border-2 border-blue-600 bg-white p-7 shadow-soft">
-            <span
-              class="absolute -top-3 left-7 rounded-full bg-blue-600 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">The
-              easiest way to test</span>
-            <p class="mt-2 text-xs font-bold uppercase tracking-wider text-blue-700">01 · Start here</p>
-            <h3 class="mt-3 text-2xl font-extrabold text-slate-950">Dental starter website</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-600">A real, professional one-page website personalised
-              with your clinic’s details—without asking you to make a big commitment first.</p>
-            <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">₹3,000</p>
+
+            <span class="absolute -top-3 left-7 rounded-full bg-blue-600 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+              The easiest way to test
+            </span>
+
+            <p class="mt-2 text-xs font-bold uppercase tracking-wider text-blue-700">
+              01 · Start here
+            </p>
+
+            <h3 class="mt-3 text-2xl font-extrabold text-slate-950">
+              Dental starter website
+            </h3>
+
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">
+              A real, professional one-page website personalised
+              with your clinic’s details—without asking you to make
+              a big commitment first.
+            </p>
+
+            <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">
+              ₹3,000
+            </p>
+
             <ul class="mt-6 space-y-3 text-sm text-slate-600">
+
               <li>✓ Your logo, colours and clinic details</li>
               <li>✓ Services, doctor and contact sections</li>
               <li>✓ Mobile-responsive layout</li>
               <li>✓ Enquiry form and Google Maps</li>
               <li>✓ Upgrade only if it makes sense</li>
-            </ul><a href="#book-call"
-              class="mt-8 rounded-xl bg-blue-600 px-5 py-3.5 text-center text-sm font-bold text-white transition hover:bg-blue-700">Talk
-              through the starter option →</a>
+
+            </ul>
+
+            <a
+              href="#book-call"
+              class="mt-8 rounded-xl bg-blue-600 px-5 py-3.5 text-center text-sm font-bold text-white transition hover:bg-blue-700"
+            >
+              Talk through the starter option →
+            </a>
+
           </article>
+
+
+          <!-- PACKAGE 2 -->
+
           <article class="flex flex-col rounded-3xl border border-slate-200 bg-slate-50 p-7">
-            <p class="text-xs font-bold uppercase tracking-wider text-slate-500">02 · When you know what you need</p>
-            <h3 class="mt-3 text-2xl font-extrabold text-slate-950">Custom landing page</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-600">For clinics that already know the exact service or
-              campaign they want their website to support.</p>
-            <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">₹5,000</p>
+
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500">
+              02 · When you know what you need
+            </p>
+
+            <h3 class="mt-3 text-2xl font-extrabold text-slate-950">
+              Custom landing page
+            </h3>
+
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">
+              For clinics that already know the exact service or
+              campaign they want their website to support.
+            </p>
+
+            <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">
+              ₹5,000
+            </p>
+
             <ul class="mt-6 space-y-3 text-sm text-slate-600">
+
               <li>✓ Custom page structure and copy</li>
               <li>✓ Campaign-focused enquiry flow</li>
               <li>✓ Your branding and imagery</li>
               <li>✓ Mobile optimized design</li>
               <li>✓ Ideal for a specific service or offer</li>
-            </ul><a href="#book-call"
-              class="mt-8 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-center text-sm font-bold text-slate-800 transition hover:border-blue-600 hover:text-blue-700">See
-              whether this fits →</a>
+
+            </ul>
+
+            <a
+              href="#book-call"
+              class="mt-8 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-center text-sm font-bold text-slate-800 transition hover:border-blue-600 hover:text-blue-700"
+            >
+              See whether this fits →
+            </a>
+
           </article>
+
+
+          <!-- PACKAGE 3 -->
+
           <article class="flex flex-col rounded-3xl border border-slate-200 bg-slate-50 p-7">
-            <p class="text-xs font-bold uppercase tracking-wider text-slate-500">03 · Upgrade when ready</p>
-            <h3 class="mt-3 text-2xl font-extrabold text-slate-950">Complete clinic website</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-600">Move here only when your clinic has proven that it
-              needs more pages, services and detail.</p>
-            <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">₹15k–₹20k</p>
+
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500">
+              03 · Upgrade when ready
+            </p>
+
+            <h3 class="mt-3 text-2xl font-extrabold text-slate-950">
+              Complete clinic website
+            </h3>
+
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">
+              Move here only when your clinic has proven that it
+              needs more pages, services and detail.
+            </p>
+
+            <p class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950">
+              ₹15k–₹20k
+            </p>
+
             <ul class="mt-6 space-y-3 text-sm text-slate-600">
+
               <li>✓ Multi-page clinic website</li>
               <li>✓ Treatment and service pages</li>
               <li>✓ Doctor profiles, gallery and more</li>
               <li>✓ Basic SEO and analytics setup</li>
               <li>✓ ₹3,000 starter credited on upgrade</li>
-            </ul><a href="#book-call"
-              class="mt-8 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-center text-sm font-bold text-slate-800 transition hover:border-blue-600 hover:text-blue-700">Talk
-              through the next step →</a>
+
+            </ul>
+
+            <a
+              href="#book-call"
+              class="mt-8 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-center text-sm font-bold text-slate-800 transition hover:border-blue-600 hover:text-blue-700"
+            >
+              Talk through the next step →
+            </a>
+
           </article>
+
         </div>
+
       </div>
+
     </section>
+
+
+    <!-- =======================================================
+         DARK CTA
+         ======================================================= -->
+
     <section class="bg-slate-950 py-20 text-white sm:py-28">
+
       <div class="mx-auto max-w-5xl px-5 text-center sm:px-7">
-        <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-300">Don’t gamble on a website</p>
-        <h2 class="mx-auto mt-3 max-w-3xl text-3xl font-extrabold tracking-tight sm:text-4xl">You don’t have to spend
-          ₹20,000 to find out whether a website works for your clinic.</h2>
-        <p class="mx-auto mt-5 max-w-2xl text-slate-300">Many clinics have never tested whether a website will help them
-          attract enquiries or build trust online. So start with a real ₹3,000 website. If it proves valuable, upgrade
-          later. If it does not, you have avoided a much bigger spend.</p><a href="#book-call"
-          class="mt-8 inline-flex rounded-xl bg-blue-500 px-6 py-3.5 font-bold text-white transition hover:bg-blue-400">Book
-          a free consultation →</a>
+
+        <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-300">
+          Don’t gamble on a website
+        </p>
+
+        <h2 class="mx-auto mt-3 max-w-3xl text-3xl font-extrabold tracking-tight sm:text-4xl">
+          You don’t have to spend ₹20,000 to find out whether a website works for your clinic.
+        </h2>
+
+        <p class="mx-auto mt-5 max-w-2xl text-slate-300">
+          Many clinics have never tested whether a website will help them
+          attract enquiries or build trust online. So start with a real
+          ₹3,000 website. If it proves valuable, upgrade later. If it
+          does not, you have avoided a much bigger spend.
+        </p>
+
+        <a
+          href="#book-call"
+          class="mt-8 inline-flex rounded-xl bg-blue-500 px-6 py-3.5 font-bold text-white transition hover:bg-blue-400"
+        >
+          Book a free consultation →
+        </a>
+
       </div>
+
     </section>
-    <section id="process" class="scroll-mt-24 bg-slate-50 py-20 sm:py-28">
+
+
+    <!-- =======================================================
+         PROCESS
+         ViewProcess
+         ======================================================= -->
+
+    <section
+      id="process"
+      class="scroll-mt-24 bg-slate-50 py-20 sm:py-28"
+    >
+
       <div class="mx-auto max-w-7xl px-5 sm:px-7">
+
         <div class="mx-auto max-w-2xl text-center">
-          <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">A clear, no-pressure process</p>
-          <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Find out whether a website
-            makes sense first.</h2>
-          <p class="mt-4 text-slate-600">The call is for making a confident decision—not for pushing you into a package.
+
+          <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">
+            A clear, no-pressure process
           </p>
+
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+            Find out whether a website makes sense first.
+          </h2>
+
+          <p class="mt-4 text-slate-600">
+            The call is for making a confident decision—not for pushing
+            you into a package.
+          </p>
+
         </div>
+
+
         <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+
           <article class="rounded-2xl border border-slate-200 bg-white p-6">
-            <span class="text-3xl font-extrabold text-blue-200">01</span>
-            <h3 class="mt-5 font-extrabold text-slate-900">Tell us about your clinic</h3>
-            <p class="mt-2 text-sm text-slate-600">Share your clinic, city and what you hope an online presence could
-              help with.</p>
+
+            <span class="text-3xl font-extrabold text-blue-200">
+              01
+            </span>
+
+            <h3 class="mt-5 font-extrabold text-slate-900">
+              Tell us about your clinic
+            </h3>
+
+            <p class="mt-2 text-sm text-slate-600">
+              Share your clinic, city and what you hope an online
+              presence could help with.
+            </p>
+
           </article>
+
+
           <article class="rounded-2xl border border-slate-200 bg-white p-6">
-            <span class="text-3xl font-extrabold text-blue-200">02</span>
-            <h3 class="mt-5 font-extrabold text-slate-900">We understand your goals</h3>
-            <p class="mt-2 text-sm text-slate-600">We arrange a convenient time for a short, straightforward
-              conversation.</p>
+
+            <span class="text-3xl font-extrabold text-blue-200">
+              02
+            </span>
+
+            <h3 class="mt-5 font-extrabold text-slate-900">
+              We understand your goals
+            </h3>
+
+            <p class="mt-2 text-sm text-slate-600">
+              We arrange a convenient time for a short,
+              straightforward conversation.
+            </p>
+
           </article>
+
+
           <article class="rounded-2xl border border-slate-200 bg-white p-6">
-            <span class="text-3xl font-extrabold text-blue-200">03</span>
-            <h3 class="mt-5 font-extrabold text-slate-900">Get an honest recommendation</h3>
-            <p class="mt-2 text-sm text-slate-600">We’ll explain whether a website is likely to make sense for your
-              situation.</p>
+
+            <span class="text-3xl font-extrabold text-blue-200">
+              03
+            </span>
+
+            <h3 class="mt-5 font-extrabold text-slate-900">
+              Get an honest recommendation
+            </h3>
+
+            <p class="mt-2 text-sm text-slate-600">
+              We’ll explain whether a website is likely to make
+              sense for your situation.
+            </p>
+
           </article>
+
+
           <article class="rounded-2xl border border-slate-200 bg-white p-6">
-            <span class="text-3xl font-extrabold text-blue-200">04</span>
-            <h3 class="mt-5 font-extrabold text-slate-900">Start only if it feels right</h3>
-            <p class="mt-2 text-sm text-slate-600">If it does, start small at ₹3,000. If not, we’ll tell you—no
-              pressure.</p>
+
+            <span class="text-3xl font-extrabold text-blue-200">
+              04
+            </span>
+
+            <h3 class="mt-5 font-extrabold text-slate-900">
+              Start only if it feels right
+            </h3>
+
+            <p class="mt-2 text-sm text-slate-600">
+              If it does, start small at ₹3,000. If not, we’ll tell
+              you—no pressure.
+            </p>
+
           </article>
+
         </div>
+
       </div>
+
     </section>
-    <section id="faq" class="scroll-mt-24 py-20 sm:py-28">
+
+
+    <!-- =======================================================
+         FAQ
+         ViewFAQ
+         ======================================================= -->
+
+    <section
+      id="faq"
+      class="scroll-mt-24 py-20 sm:py-28"
+    >
+
       <div class="mx-auto grid max-w-6xl gap-10 px-5 sm:px-7 lg:grid-cols-[.72fr_1.28fr]">
+
+
         <div>
-          <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">Questions answered</p>
-          <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Answers before any
-            commitment.</h2>
-          <p class="mt-4 text-slate-600">Use the short call to decide whether a website is a worthwhile next step for
-            your clinic.</p>
+
+          <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-700">
+            Questions answered
+          </p>
+
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+            Answers before any commitment.
+          </h2>
+
+          <p class="mt-4 text-slate-600">
+            Use the short call to decide whether a website is a
+            worthwhile next step for your clinic.
+          </p>
+
         </div>
+
+
         <div class="divide-y divide-slate-200">
+
+
           <details class="group py-5" open>
+
             <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-slate-900">
-              How do I know a website will actually help my clinic?<span
-                class="text-xl text-blue-600 group-open:rotate-45">+</span>
+
+              How do I know a website will actually help my clinic?
+
+              <span class="text-xl text-blue-600 group-open:rotate-45">
+                +
+              </span>
+
             </summary>
-            <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">You cannot know for certain before trying
-              it—and that is why the starter option exists. It gives you a professional online presence for ₹3,000
-              instead of asking you to commit ₹20,000+ upfront.</p>
+
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">
+              You cannot know for certain before trying it—and that is
+              why the starter option exists. It gives you a professional
+              online presence for ₹3,000 instead of asking you to commit
+              ₹20,000+ upfront.
+            </p>
+
           </details>
+
+
           <details class="group py-5">
+
             <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-slate-900">
-              What if I decide I do not need a bigger website?<span
-                class="text-xl text-blue-600 group-open:rotate-45">+</span>
+
+              What if I decide I do not need a bigger website?
+
+              <span class="text-xl text-blue-600 group-open:rotate-45">
+                +
+              </span>
+
             </summary>
-            <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">That is completely fine. The starter is a
-              complete, professional website on its own. Upgrading is optional—not a requirement.</p>
+
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">
+              That is completely fine. The starter is a complete,
+              professional website on its own. Upgrading is optional—
+              not a requirement.
+            </p>
+
           </details>
+
+
           <details class="group py-5">
+
             <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-slate-900">
-              What happens on the 15-minute call?<span class="text-xl text-blue-600 group-open:rotate-45">+</span>
+
+              What happens on the 15-minute call?
+
+              <span class="text-xl text-blue-600 group-open:rotate-45">
+                +
+              </span>
+
             </summary>
-            <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">We understand your clinic and goals, answer
-              your questions, and explain whether starting with a website is likely to make sense. It is a conversation,
-              not a hard sell.</p>
+
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">
+              We understand your clinic and goals, answer your
+              questions, and explain whether starting with a website
+              is likely to make sense. It is a conversation, not a
+              hard sell.
+            </p>
+
           </details>
+
+
           <details class="group py-5">
+
             <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-slate-900">
-              Do I need technical knowledge?<span class="text-xl text-blue-600 group-open:rotate-45">+</span>
+
+              Do I need technical knowledge?
+
+              <span class="text-xl text-blue-600 group-open:rotate-45">
+                +
+              </span>
+
             </summary>
-            <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">No. We handle the website setup and
-              deployment. You only need to provide your clinic information and assets.</p>
+
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">
+              No. We handle the website setup and deployment. You
+              only need to provide your clinic information and assets.
+            </p>
+
           </details>
+
+
         </div>
+
       </div>
+
     </section>
-    <section id="book-call" class="scroll-mt-24 bg-gradient-to-br from-blue-700 to-blue-900 py-20 sm:py-28">
+
+
+    <!-- =======================================================
+         FORM
+         ViewForm
+         ======================================================= -->
+
+    <section
+      id="book-call"
+      class="scroll-mt-24 bg-gradient-to-br from-blue-700 to-blue-900 py-20 sm:py-28"
+    >
+
       <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-7 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+
+
         <div class="text-white">
-          <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-200">Your next step</p>
-          <h2 class="mt-3 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">Let’s find out if a website
-            is worth it for your clinic.</h2>
-          <p class="mt-4 leading-relaxed text-blue-50">Fill out this short form. We’ll arrange a Google Meet call to
-            understand your clinic, your goals, and whether a website is the right next step.</p>
+
+          <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-200">
+            Your next step
+          </p>
+
+          <h2 class="mt-3 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
+            Let’s find out if a website is worth it for your clinic.
+          </h2>
+
+          <p class="mt-4 leading-relaxed text-blue-50">
+            Fill out this short form. We’ll arrange a Google Meet call
+            to understand your clinic, your goals, and whether a
+            website is the right next step.
+          </p>
+
           <div class="mt-7 rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-blue-50">
-            <strong class="block text-white">No payment is collected in this form.</strong> If we do not think a website
-            will help, we’ll tell you. No pressure and no obligation.
+
+            <strong class="block text-white">
+              No payment is collected in this form.
+            </strong>
+
+            If we do not think a website will help, we’ll tell you.
+            No pressure and no obligation.
+
           </div>
+
         </div>
+
+
+        <!-- =====================================================
+             FORM
+             ===================================================== -->
+
         <form
           action="https://script.google.com/macros/s/AKfycbysUBWDlYML1JQnuvuPNQRxs0exU9A18AxLNWcsvSPKBeO1Q7ZvmnCT34ys1qDQXkpzsA/exec"
-          method="POST" target="hidden_iframe" id="enquiry-form" class="rounded-3xl bg-white p-6 shadow-2xl sm:p-8">
-          <div id="form-fields" class="grid gap-4 sm:grid-cols-2"><label
-              class="grid gap-1.5 text-sm font-semibold text-slate-700">Your name<input required name="name"
-                autocomplete="name" placeholder="Dr. Sharma"
-                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
-              class="grid gap-1.5 text-sm font-semibold text-slate-700">Clinic name<input required name="clinic"
+          method="POST"
+          target="hidden_iframe"
+          id="enquiry-form"
+          class="rounded-3xl bg-white p-6 shadow-2xl sm:p-8"
+        >
+
+
+          <div
+            id="form-fields"
+            class="grid gap-4 sm:grid-cols-2"
+          >
+
+
+            <!-- NAME -->
+
+            <label class="grid gap-1.5 text-sm font-semibold text-slate-700">
+
+              Your name
+
+              <input
+                required
+                name="name"
+                autocomplete="name"
+                placeholder="Dr. Sharma"
+                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+              >
+
+            </label>
+
+
+            <!-- CLINIC -->
+
+            <label class="grid gap-1.5 text-sm font-semibold text-slate-700">
+
+              Clinic name
+
+              <input
+                required
+                name="clinic"
                 placeholder="Sharma Dental Care"
-                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
-              class="grid gap-1.5 text-sm font-semibold text-slate-700">Phone number<label
-                class="grid gap-1.5 text-sm font-semibold text-slate-700">
+                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+              >
+
+            </label>
 
 
-                <input required name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="9876543210"
-                  minlength="10" maxlength="10" pattern="[6-9][0-9]{9}"
-                  title="Enter a valid 10-digit Indian mobile number"
-                  class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
+            <!-- PHONE -->
 
-              </label></label><label class="grid gap-1.5 text-sm font-semibold text-slate-700">City<input required
-                name="city" placeholder="Mumbai"
-                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></label><label
-              class="grid gap-1.5 text-sm font-semibold text-slate-700 sm:col-span-2">I’m interested
-              in<select name="interestedIn"
-                class="rounded-xl border border-slate-200 bg-white px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
-                <option>₹3,000 Dental Starter Website</option>
-                <option>₹5,000 Custom Landing Page</option>
-                <option>₹15,000–₹20,000 Complete Website</option>
-                <option>I’m not sure yet</option>
-              </select></label><label class="grid gap-1.5 text-sm font-semibold text-slate-700 sm:col-span-2">Anything
-              you’d like
-              to discuss? <span class="font-normal text-slate-400">(optional)</span><textarea name="description"
-                rows="3" placeholder="Tell us a little about your clinic or goal."
-                class="resize-none rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"></textarea></label><button
+            <label class="grid gap-1.5 text-sm font-semibold text-slate-700">
+
+              Phone number
+
+              <input
+                required
+                name="phone"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel"
+                placeholder="9876543210"
+                minlength="10"
+                maxlength="10"
+                pattern="[6-9][0-9]{9}"
+                title="Enter a valid 10-digit Indian mobile number"
+                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+              >
+
+            </label>
+
+
+            <!-- CITY -->
+
+            <label class="grid gap-1.5 text-sm font-semibold text-slate-700">
+
+              City
+
+              <input
+                required
+                name="city"
+                placeholder="Mumbai"
+                class="rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+              >
+
+            </label>
+
+
+            <!-- INTEREST -->
+
+            <label class="grid gap-1.5 text-sm font-semibold text-slate-700 sm:col-span-2">
+
+              I’m interested in
+
+              <select
+                name="interestedIn"
+                class="rounded-xl border border-slate-200 bg-white px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+              >
+
+                <option>
+                  ₹3,000 Dental Starter Website
+                </option>
+
+                <option>
+                  ₹5,000 Custom Landing Page
+                </option>
+
+                <option>
+                  ₹15,000–₹20,000 Complete Website
+                </option>
+
+                <option>
+                  I’m not sure yet
+                </option>
+
+              </select>
+
+            </label>
+
+
+            <!-- DESCRIPTION -->
+
+            <label class="grid gap-1.5 text-sm font-semibold text-slate-700 sm:col-span-2">
+
+              Anything you’d like to discuss?
+
+              <span class="font-normal text-slate-400">
+                (optional)
+              </span>
+
+              <textarea
+                name="description"
+                rows="3"
+                placeholder="Tell us a little about your clinic or goal."
+                class="resize-none rounded-xl border border-slate-200 px-3.5 py-3 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+              ></textarea>
+
+            </label>
+
+
+            <!-- SUBMIT -->
+
+            <button
               class="rounded-xl bg-blue-600 px-5 py-3.5 font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 sm:col-span-2"
-              type="submit">Book a call now →</button>
-            <p class="text-center text-xs text-slate-500 sm:col-span-2">Your details are only used to
-              contact you about your website enquiry.</p>
+              type="submit"
+            >
+              Book a call now →
+            </button>
+
+
+            <p class="text-center text-xs text-slate-500 sm:col-span-2">
+              Your details are only used to contact you about your
+              website enquiry.
+            </p>
+
+
           </div>
-          <div id="form-success" class="hidden py-8 text-center">
+
+
+          <!-- ===================================================
+               SUCCESS
+               =================================================== -->
+
+          <div
+            id="form-success"
+            class="hidden py-8 text-center"
+          >
+
             <div class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-blue-100 text-2xl text-blue-700">
-              ✓</div>
-            <h3 class="mt-4 text-xl font-extrabold text-slate-900">Request received.</h3>
-            <p class="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-600">Thank you. We’ll contact
-              you to schedule your 15-minute Google Meet call.</p>
+              ✓
+            </div>
+
+            <h3 class="mt-4 text-xl font-extrabold text-slate-900">
+              Request received.
+            </h3>
+
+            <p class="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-600">
+              Thank you. We’ll contact you to schedule your
+              15-minute Google Meet call.
+            </p>
+
           </div>
+
+
         </form>
+
       </div>
+
     </section>
-  </main><!-- One persistent action: book a call. -->
 
-  <a href="#book-call"
-    class="fixed bottom-5 right-5 z-30 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-2xl transition hover:-translate-y-1 hover:bg-blue-700 sm:bottom-7 sm:right-7">Is
-    a website worth it? →</a>
-    
-<!-- Hidden iframe used for form submission -->
-<iframe
-  name="hidden_iframe"
-  style="display:none;"
-  onload="if (window.submitted) showSuccess();">
-</iframe>
-
-<script>
-/* =========================================================
-   FULL STACK SOLUTION — FUNNEL TRACKING
-   =========================================================
-
-   Standard event:
-   - PageView
-   - Lead
-
-   Custom events:
-   - ViewOffer
-   - ViewProcess
-   - ViewFAQ
-   - ViewForm
-   - ClickCTA
-
-   Section events fire once per page visit.
-   Lead fires once per browser.
-   ========================================================= */
+  </main>
 
 
-(function () {
+  <!-- =========================================================
+       FLOATING CTA
+       ========================================================= -->
 
-  /* =======================================================
-     CONFIG
-     ======================================================= */
-
-  const LEAD_STORAGE_KEY = "fss_lead_submitted";
-
-
-  /* =======================================================
-     SAFE META EVENT FUNCTION
-     ======================================================= */
-
-  function trackCustomEvent(eventName) {
-
-    if (typeof fbq !== "function") {
-      console.error("Meta Pixel not available:", eventName);
-      return;
-    }
-
-    fbq("trackCustom", eventName);
-
-    console.log("Meta event:", eventName);
-  }
+  <a
+    href="#book-call"
+    class="fixed bottom-5 right-5 z-30 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-2xl transition hover:-translate-y-1 hover:bg-blue-700 sm:bottom-7 sm:right-7"
+  >
+    Is a website worth it? →
+  </a>
 
 
-  /* =======================================================
-     TRACK EACH SECTION ONLY ONCE
-     ======================================================= */
+  <!-- =========================================================
+       HIDDEN IFRAME
+       ========================================================= -->
 
-  const trackedSections = new Set();
+  <iframe
+    name="hidden_iframe"
+    style="display:none;"
+  ></iframe>
 
 
-  function trackSection(sectionId, eventName) {
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
 
-    const section = document.getElementById(sectionId);
+  <script>
 
-    if (!section) {
-      console.warn("Section not found:", sectionId);
-      return;
-    }
+    /* =========================================================
+       MOBILE MENU
+       ========================================================= */
 
-    const observer = new IntersectionObserver(
-      function (entries, observer) {
+    const menuButton =
+      document.querySelector("#menu-button");
 
-        entries.forEach(function (entry) {
+    const menu =
+      document.querySelector("#mobile-menu");
 
-          if (
-            entry.isIntersecting &&
-            !trackedSections.has(eventName)
-          ) {
 
-            trackedSections.add(eventName);
+    menuButton.addEventListener("click", () => {
 
-            trackCustomEvent(eventName);
+      const open =
+        menu.classList.toggle("hidden") === false;
 
-            // Stop observing after first successful trigger
-            observer.unobserve(section);
+      menuButton.setAttribute(
+        "aria-expanded",
+        open
+      );
+
+    });
+
+
+    menu.querySelectorAll("a").forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        menu.classList.add("hidden");
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      });
+
+    });
+
+
+    /* =========================================================
+       SECTION TRACKING
+       ========================================================= */
+
+    const trackedSections = {
+
+      "packages": "ViewOffer",
+
+      "process": "ViewProcess",
+
+      "faq": "ViewFAQ",
+
+      "book-call": "ViewForm"
+
+    };
+
+
+    /*
+     * IntersectionObserver detects when the user
+     * actually reaches the section.
+     */
+
+    const sectionObserver =
+      new IntersectionObserver(
+
+        (entries) => {
+
+          entries.forEach(entry => {
+
+            if (!entry.isIntersecting) {
+              return;
+            }
+
+
+            const sectionId =
+              entry.target.id;
+
+
+            const eventName =
+              trackedSections[sectionId];
+
+
+            if (!eventName) {
+              return;
+            }
+
+
+            /*
+             * trackOnce() checks localStorage.
+             */
+
+            trackOnce(
+              eventName,
+              {
+                section: sectionId
+              }
+            );
+
+
+            /*
+             * No reason to keep watching this section.
+             */
+
+            sectionObserver.unobserve(
+              entry.target
+            );
+
+          });
+
+        },
+
+        {
+          threshold: 0.40
+        }
+
+      );
+
+
+    /*
+     * Start observing sections.
+     */
+
+    Object.keys(trackedSections).forEach(
+      sectionId => {
+
+        const section =
+          document.getElementById(sectionId);
+
+
+        if (section) {
+
+          sectionObserver.observe(
+            section
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       FORM SUBMISSION
+       ========================================================= */
+
+    const form =
+      document.getElementById("enquiry-form");
+
+
+    const iframe =
+      document.querySelector(
+        'iframe[name="hidden_iframe"]'
+      );
+
+
+    let submitted = false;
+
+    let successShown = false;
+
+
+    form.addEventListener("submit", () => {
+
+      submitted = true;
+
+
+      const btn =
+        form.querySelector("button");
+
+
+      btn.disabled = true;
+
+      btn.innerText =
+        "Sending...";
+
+    });
+
+
+    /* =========================================================
+       EMAILJS
+       ========================================================= */
+
+    function sendLeadEmail() {
+
+      /*
+       * Make sure EmailJS loaded.
+       */
+
+      if (
+        typeof emailjs === "undefined"
+      ) {
+
+        console.error(
+          "[EmailJS] EmailJS is not loaded."
+        );
+
+        return;
+
+      }
+
+
+      const name =
+        form.querySelector(
+          '[name="name"]'
+        ).value;
+
+
+      const clinic =
+        form.querySelector(
+          '[name="clinic"]'
+        ).value;
+
+
+      const phone =
+        form.querySelector(
+          '[name="phone"]'
+        ).value;
+
+
+      const city =
+        form.querySelector(
+          '[name="city"]'
+        ).value;
+
+
+      const interestedIn =
+        form.querySelector(
+          '[name="interestedIn"]'
+        ).value;
+
+
+      const description =
+        form.querySelector(
+          '[name="description"]'
+        ).value;
+
+
+      const templateParams = {
+
+        name: name,
+
+        clinic: clinic,
+
+        phone: phone,
+
+        city: city,
+
+        interestedIn: interestedIn,
+
+        description: description,
+
+        time: new Date().toLocaleString(
+          "en-IN",
+          {
+            timeZone: "Asia/Kolkata"
           }
+        )
 
-        });
-
-      },
-      {
-        // 50% of section must be visible
-        threshold: 0.5
-      }
-    );
-
-    observer.observe(section);
-  }
+      };
 
 
-  /* =======================================================
-     FUNNEL SECTION EVENTS
-     ======================================================= */
+      /*
+       * EmailJS is completely independent
+       * from Meta.
+       */
 
-  // Visitor reaches the pricing/offer section
-  trackSection("packages", "ViewOffer");
+      emailjs.send(
+        "email",
+        "template_ikzbpvi",
+        templateParams
+      )
 
-  // Visitor reaches How It Works
-  trackSection("process", "ViewProcess");
+      .then(response => {
 
-  // Visitor reaches FAQ
-  trackSection("faq", "ViewFAQ");
+        console.log(
+          "[EmailJS] Email sent successfully.",
+          response.status,
+          response.text
+        );
 
-  // Visitor reaches enquiry form
-  trackSection("book-call", "ViewForm");
+      })
 
+      .catch(error => {
 
-  /* =======================================================
-     CTA CLICK TRACKING
-     ======================================================= */
+        /*
+         * IMPORTANT:
+         *
+         * Email failure does NOT affect Meta Lead.
+         */
 
-  const ctaLinks = document.querySelectorAll(
-    'a[href="#book-call"]'
-  );
+        console.error(
+          "[EmailJS] Email failed:",
+          error
+        );
 
-  ctaLinks.forEach(function (cta) {
-
-    cta.addEventListener("click", function () {
-
-      trackCustomEvent("ClickCTA");
-
-    });
-
-  });
-
-
-  /* =======================================================
-     LEAD TRACKING
-     ======================================================= */
-
-  const form = document.getElementById("enquiry-form");
-
-  window.submitted = false;
-
-
-  function leadAlreadySubmitted() {
-
-    return localStorage.getItem(
-      LEAD_STORAGE_KEY
-    ) === "true";
-
-  }
-
-
-  function markLeadSubmitted() {
-
-    localStorage.setItem(
-      LEAD_STORAGE_KEY,
-      "true"
-    );
-
-  }
-
-
-  function trackLeadOnce() {
-
-    // CHECK FIRST
-    if (leadAlreadySubmitted()) {
-
-      console.log(
-        "Lead already submitted. Lead event blocked."
-      );
-
-      return;
+      });
 
     }
 
 
-    if (typeof fbq !== "function") {
+    /* =========================================================
+       SHOW SUCCESS
+       ========================================================= */
 
-      console.error(
-        "Meta Pixel not available. Lead not tracked."
-      );
-
-      return;
-
-    }
+    function showSuccess() {
 
 
-    // Send standard Meta Lead event
-    fbq("track", "Lead");
+      /*
+       * Prevent iframe from causing the function
+       * to execute multiple times.
+       */
 
+      if (successShown) {
 
-    // Remember this browser has submitted
-    markLeadSubmitted();
+        console.log(
+          "[Form] Success already shown."
+        );
 
-
-    console.log("Meta Lead tracked successfully.");
-
-  }
-
-
-  /* =======================================================
-     FORM SUBMISSION
-     ======================================================= */
-
-  if (form) {
-
-    form.addEventListener("submit", function () {
-
-      window.submitted = true;
-
-      const button = form.querySelector("button");
-
-      if (button) {
-
-        button.disabled = true;
-
-        button.innerText = "Sending...";
+        return;
 
       }
 
-    });
 
-  }
-
-
-  /* =======================================================
-     FORM SUCCESS
-     ======================================================= */
-
-  window.showSuccess = function () {
-
-    // Track Lead exactly once
-    trackLeadOnce();
+      successShown = true;
 
 
-    // Hide form
-    const formFields =
-      document.getElementById("form-fields");
+      /* =======================================================
+         META LEAD
+         ======================================================= */
 
-    if (formFields) {
-
-      formFields.classList.add("hidden");
-
-    }
-
-
-    // Show success message
-    const success =
-      document.getElementById("form-success");
-
-    if (success) {
-
-      success.classList.remove("hidden");
-
-    }
+      const leadAlreadySubmitted =
+        localStorage.getItem(
+          "fss_lead_submitted"
+        ) === "true";
 
 
-    // Reset form
-    if (form) {
+      if (!leadAlreadySubmitted) {
+
+
+        /*
+         * Track Lead.
+         */
+
+        if (typeof fbq === "function") {
+
+          fbq(
+            "track",
+            "Lead"
+          );
+
+
+          /*
+           * Mark immediately.
+           */
+
+          localStorage.setItem(
+            "fss_lead_submitted",
+            "true"
+          );
+
+
+          console.log(
+            "[Meta] Lead tracked."
+          );
+
+        }
+
+      }
+
+      else {
+
+        console.log(
+          "[Meta] Lead already submitted in this browser."
+        );
+
+      }
+
+
+      /* =======================================================
+         EMAILJS
+         ======================================================= */
+
+      /*
+       * EmailJS runs separately.
+       */
+
+      sendLeadEmail();
+
+
+      /* =======================================================
+         SUCCESS UI
+         ======================================================= */
+
+      document
+        .getElementById("form-fields")
+        .classList.add("hidden");
+
+
+      document
+        .getElementById("form-success")
+        .classList.remove("hidden");
+
+
+      /*
+       * Reset form after collecting the values.
+       */
 
       form.reset();
 
     }
 
 
-    // Prevent iframe reloads from
-    // triggering another submission
-    window.submitted = false;
+    /* =========================================================
+       GOOGLE SHEETS RESPONSE
+       ========================================================= */
 
-  };
+    iframe.addEventListener(
+      "load",
+      () => {
+
+        if (!submitted) {
+          return;
+        }
 
 
-})();
-</script>
+        showSuccess();
+
+      }
+    );
+
+
+  </script>
+
+
 </body>
 
 </html>
